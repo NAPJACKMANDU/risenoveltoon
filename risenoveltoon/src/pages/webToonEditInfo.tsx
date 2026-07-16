@@ -77,7 +77,7 @@ function EditInfo() {
 
                 {/* 하단 취소 / 계속 버튼 */}
             </main>
-            <div className="bottom-btn-row">
+            <div className="info-bottom-btn-row">
                 <button className="btn-cancel">취소</button>
                 <button className="btn-continue">계속</button>
             </div>

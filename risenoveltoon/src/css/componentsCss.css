@@ -76,8 +76,8 @@ button {
 }
 .back-btn {
     font-size: 20px;
-    font-weight: bol
-    d;
+    font-weight: bold;
+    color: black;
 }
 .empty-space {
     width: 24px; /* 대칭 맞추기용 공간 */
