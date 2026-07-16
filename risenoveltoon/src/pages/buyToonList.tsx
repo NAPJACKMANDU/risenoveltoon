@@ -4,22 +4,25 @@ import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import {useState} from "react";
 
-// 임시 데이터 (나중에 서버에서 받아올 데이터 구조)
-const initialData = [
-    { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon'},
-    { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon'},
-    { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel' },
-    { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon' },
-    { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel' },
-];
 
-const categoryTitle = [
-    { id: "all", title: "📋 전체" },
-    { id: "webtoon", title: "📔 웹툰" },
-    { id: "novel", title: "📖 소설" },
-    { id: "wish", title: "❤️ 찜" }
-];
 export const BuyToonlist = () => {
+
+    // 임시 데이터 (나중에 서버에서 받아올 데이터 구조)
+    const buyList = [
+        { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: ''},
+        { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon', img: ''},
+        { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel', img: ''},
+        { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon' , img: ''},
+        { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel', img: ''},
+    ];
+
+    const categoryTitle = [
+        { id: "all", title: "📋 전체" },
+        { id: "webtoon", title: "📔 웹툰" },
+        { id: "novel", title: "📖 소설" },
+        { id: "wish", title: "❤️ 찜" }
+    ];
+
     const [categoryId, setActiveTab] = useState('all');
 
     return (
@@ -51,7 +54,7 @@ export const BuyToonlist = () => {
                 </div>
             </header>
             {/* 4. 스크롤되는 리스트 영역 */}
-            <CategoryButton initialData = {initialData} categoryId={categoryId}/>
+            <CategoryButton listData = {buyList} categoryId={categoryId}/>
             <ToonMainBottom/>
         </div>
     );

@@ -31,3 +31,15 @@
     font-size: 11px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+
+.bottom-btn-row{
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 24px 20px 24px;
+    background-color: #ffffff;
+    padding-bottom: calc(var(--bottom-bar-height) + 20px);
+}

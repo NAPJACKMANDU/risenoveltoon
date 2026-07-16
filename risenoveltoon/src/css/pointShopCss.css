@@ -38,7 +38,7 @@
 }
 .pay-btn {
     flex: 1;
-    height: 48px;
+    height: 43px;
     border: 1px solid #ccc;
     border-radius: 8px;
     display: flex;
@@ -47,7 +47,7 @@
     font-weight: bold;
     font-size: 14px;
 }
-.pay-btn.kakao { background-color: #ffeb00; border-color: #ffeb00; color: black; }
+.pay-btn.kakao { background-color: #fee500; border-color: #fee500; color: black; }
 .pay-btn.toss { background-color: #fff; color: #0064ff; }
 
 .terms-text {

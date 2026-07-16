@@ -19,12 +19,13 @@ export const MyPage = () => {
     const buyListUpDown = () => {
         setIsBuyListOpen(!isBuyListOpen);
     }
-    const purchaseList = [
-        { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon' },
-        { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon' },
-        { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel' },
-        { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon' },
-        { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel' },
+
+    const buyList = [
+        { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: ''},
+        { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon', img: ''},
+        { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel', img: ''},
+        { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon', img: ''},
+        { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel', img: ''},
     ];
 
     const categoryTitle = [
@@ -44,7 +45,7 @@ export const MyPage = () => {
                 </div>
 
             {/* 프로필 섹션 */}
-            <div className="scroll-content">
+            <div className="mypage-content">
             <section className="profile-section">
                 <div className="profile-info">
                     <div className="profile-image-wrapper">
@@ -97,7 +98,7 @@ export const MyPage = () => {
                     <FiChevronRight onClick={() => navigate("/buyToonList")}  size={20} className="arrow-icon" />
                 </div>
             {/* 리스트 목록 */}
-            <CategoryButton initialData={purchaseList} categoryId={categoryId} />
+            <CategoryButton listData = {buyList} categoryId={categoryId} />
                 </>
             )}
                 <ToonMainBottom/>

@@ -1,6 +1,6 @@
-import React from 'react'
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
+import type {NovelToonListProps, CategoryProps} from "../interface/types";
 
 // 뒤로가기 공통
 export const BackButton = () => {
@@ -18,13 +18,13 @@ export const BackButton = () => {
 };
 
 // 전체, 웹툰, 소설, 랭킹 등 버튼 클릭 시 필터링 공통
-export const CategoryButton = ({initialData, categoryId}) => {
+export const CategoryButton = ({listData, categoryId} : NovelToonListProps & CategoryProps) => {
     const navigate = useNavigate();
 
     const filteredData =
         categoryId === "all"
-            ? initialData
-            : initialData.filter((item) => item.type === categoryId);
+            ? listData
+            : listData.filter((item) => item.type === categoryId);
 
     return (
         <div className="scroll-content">

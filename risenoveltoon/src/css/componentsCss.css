@@ -27,8 +27,9 @@ body {
 /* 2. 내부 스크롤 바디 영역 */
 .scroll-content {
     flex: 1;
-    overflow-y: auto;    /* 💡 내용이 많아지면 오직 이 영역 안에서만 스크롤이 돎 */
+    overflow-y: auto;
     width: 100%;
+    padding-bottom: var(--bottom-bar-height);
 }
 
 .scroll-content::-webkit-scrollbar {
@@ -71,12 +72,12 @@ button {
     justify-content: space-between;
     align-items: center;
     margin-top: 15px;
-    margin-bottom: 15px;
     border-bottom: 1px solid #f9f9f9;
 }
 .back-btn {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: bol
+    d;
 }
 .empty-space {
     width: 24px; /* 대칭 맞추기용 공간 */
