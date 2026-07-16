@@ -1,0 +1,12 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 15px;
+}
+.list-content {
+    flex: 1;
+    padding: 0;
+}

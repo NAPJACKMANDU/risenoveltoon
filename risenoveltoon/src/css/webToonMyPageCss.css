@@ -1,0 +1,121 @@
+.profile-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 24px 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.profile-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.nickname {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+.myPageHeader {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 10;
+    padding: 5px 16px 0 16px;
+}
+
+.myPageCategory-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px 10px;
+}
+
+.arrow-icon {
+    font-size: 14px;
+    color: #8e8e93;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.myPageCategory {
+    display: flex;
+    gap: 8px;
+}
+.hashtag {
+    font-size: 14px;
+    color: #666666;
+}
+.edit-btn {
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: #333333;
+}
+.balance-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+.balance-label {
+    font-size: 16px;
+    font-weight: 600;
+}
+.balance-value-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.balance-amount {
+    font-size: 16px;
+    font-weight: 700;
+}
+.purchase-section {
+    padding: 20px 0 0 0;
+    border-bottom: 1px solid #f9f9f9;
+}
+.purchase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 16px 0;
+}
+.purchase-list {
+    display: flex;
+    flex-direction: column;
+}
+.purchase-item, .list-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #f9f9f9;
+}
+.item-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    object-fit: cover;
+    background-color: #eaeaea;
+    margin-right: 16px;
+}
+.item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.item-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+.list-arrow, .detail-btn {
+    color: #bcbcbc;
+}
