@@ -7,6 +7,11 @@ import {BackButton} from "../hooks/functionComHook";
 export default function PointShop() {
     const points = ['1000P', '3000P', '5000P', '7000P', '9000P', '10,000P'];
 
+
+    const coinButtonClick =  (point : string) => {
+  ;
+    };
+
     return (
         <div className="mobile-container">
             {/* 📱 상단 헤더 고정 */}
@@ -24,7 +29,7 @@ export default function PointShop() {
                     {points.map((point, idx) => (
                         <div className="charge-item" key={idx}>
                             <div className="charge-left">
-                                <div className="radio-circle"></div>
+                                <button type="button" onClick = {() => coinButtonClick(point)} className="radio-circle"></button>
                                 <span>{point}</span>
                             </div>
                             <span className="charge-price">{point.replace('P', '원')}</span>
