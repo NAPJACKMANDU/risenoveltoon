@@ -3,14 +3,9 @@ import "../css/componentsCss.css"
 import {NovelToonMain, ToonMainBottom} from '../components/mainToon/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {novelToonData} from "../components/mainToon/webToonData"
 
 export const MainHome = () => {
-    const webtoonData = [
-        { id: 1, tag: '#CP명', title: '성찬영말티즈리트리버', img: 'https://via.placeholder.com/150x200' },
-        { id: 2, tag: '#CP명', title: '또리토리또토리', img: 'https://via.placeholder.com/150x200' },
-        { id: 3, tag: '#CP명', title: '송은석', img: 'https://via.placeholder.com/150x200' },
-    ];
-
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
         { id: "webtoon", title: "📔 웹툰" },
@@ -63,13 +58,13 @@ export const MainHome = () => {
 
                 {/* 5. 웹툰 섹션 (가로 스크롤) */}
                 <div className="section-container">
-                    <div className="section-header">
+                    <div onClick={() => navigate("/webToonMemberList")} className="section-header">
                         <span className="section-title">웹툰</span>
                         <span className="arrow-icon">❯</span>
                     </div>
 
                     <div className="horizontal-scroll-view">
-                        <NovelToonMain data={webtoonData}/>
+                        <NovelToonMain data={novelToonData} type="webtoon"/>
                     </div>
                 </div>
 
@@ -80,7 +75,7 @@ export const MainHome = () => {
                         <span className="arrow-icon">❯</span>
                     </div>
                     <div className="horizontal-scroll-view">
-                        <NovelToonMain data={webtoonData}/>
+                        <NovelToonMain data={novelToonData} type="novel"/>
                     </div>
                 </div>
                 </div>

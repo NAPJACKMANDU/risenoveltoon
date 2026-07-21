@@ -8,3 +8,5 @@ export const DETAILSCREEN_PATH = () => '/detailScreen';
 export const PIONTSHOPSCREEN_PATH = () =>'/pointShop';
 export const SEARCHSCREEN_PATH = () => '/searchScreen';
 export const TOONVIEWER_PATH = () => '/toonViewer'
+export const WEBTOONLIST_PATH = () => '/webToonMemberList'
+export const NOVELLIST_PATH = () => '/novelList'

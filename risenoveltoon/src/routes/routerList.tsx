@@ -9,7 +9,8 @@ import {
     DETAILSCREEN_PATH,
     PIONTSHOPSCREEN_PATH,
     SEARCHSCREEN_PATH,
-    TOONVIEWER_PATH
+    TOONVIEWER_PATH,
+    WEBTOONLIST_PATH
 } from "./index.ts";
 import MainHome from "../pages/webToonMain"
 import MyPage from "../pages/webToonMyScreen";
@@ -21,6 +22,7 @@ import Detail from "../pages/detailScreen";
 import PointShop from "../pages/pointShop";
 import SearchPage from "../pages/searchScreen";
 import ToonViewer from "../pages/toonViewer";
+import WebToonMemberList from "../pages/webToonMemberList.tsx";
 
 export const RouterSetting = () => {
     return (
@@ -36,6 +38,7 @@ export const RouterSetting = () => {
             <Route path={PIONTSHOPSCREEN_PATH()} element={<PointShop/>}></Route>
             <Route path={SEARCHSCREEN_PATH()} element={<SearchPage/>}></Route>
             <Route path={TOONVIEWER_PATH()} element={<ToonViewer/>}></Route>
+            <Route path={WEBTOONLIST_PATH()} element={<WebToonMemberList/>}></Route>
         </Routes>
     )
 }

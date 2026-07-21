@@ -1,13 +1,21 @@
 // 메인 웹툰 
 export interface novelToonMainData {
     id: number | string;
-    tag: string;
     title: string;
+    tag: string;
+    type : string;
     img: string;
+    memberId : string;
+    author:string;
 }
 // Props : 넘겨주는 속성값
 export interface NovelToonMainProps {
     data: novelToonMainData[];
+}
+
+// 메인 웹툰인지 소설인지 확인 후 보여 주기
+export interface NovelToonType {
+    type : string;
 }
 
 // 목록 웹툰
@@ -27,3 +35,5 @@ export interface NovelToonListProps {
 export interface CategoryProps {
     categoryId : string;
 }
+
+

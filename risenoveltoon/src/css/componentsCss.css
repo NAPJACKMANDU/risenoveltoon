@@ -50,6 +50,7 @@ button {
     outline: none;
     background: transparent;
     box-sizing: border-box;
+    color : black;
 }
 
 /* 4. 상단 고정 헤더 및 타이틀 바 공통 */
