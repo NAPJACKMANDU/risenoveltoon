@@ -9,11 +9,7 @@ export default function Login() {
     return (
         <div className="mobile-container">
                 <header className="header-fixed">
-                <div className="title-bar">
-                    <BackButton/> {/*뒤로가기*/}
-                    <h1 className="page-title">LOGIN</h1>
-                    <div className="empty-space"></div>
-                </div>
+                    <BackButton backtype = "LOGIN" /> {/*뒤로가기*/}
                     <h2 className="login-subtitle">로그인</h2>
                 </header>
             <div className="edit-form">

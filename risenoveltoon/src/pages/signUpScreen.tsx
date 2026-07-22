@@ -8,11 +8,7 @@ export default function SignUp() {
         <div className="mobile-container">
 
             <header className="header-fixed">
-                <div className="title-bar">
-                    <BackButton/> {/*뒤로가기*/}
-                    <h1 className="page-title">회원가입</h1>
-                    <div className="empty-space"></div>
-                </div>
+                    <BackButton backtype ="회원가입"/> {/*뒤로가기*/}
             </header>
             <main className="sign-content">
                 <div className="input-group">

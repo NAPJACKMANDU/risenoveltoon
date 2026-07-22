@@ -1,10 +1,12 @@
-import React, { useState} from 'react';
+import {useState} from 'react';
 import '../css/webToonEditInfoCss.css';
 import "../css/componentsCss.css"
 import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
 import {BackButton} from "../hooks/functionComHook";
+import {useNavigate} from "react-router-dom";
 
 function EditInfo() {
+    const navigate = useNavigate();
     const [nickname, setNickname] = useState('');
     const [cpName, setCpName] = useState('');
 
@@ -26,11 +28,7 @@ function EditInfo() {
         <div className="mobile-container">
             {/* 1. 상단 고정 헤더 */}
             <header className="header-fixed">
-                <div className="title-bar">
-                    <BackButton/> {/*뒤로가기*/}
-                    <h1 className="page-title">정보 수정</h1>
-                    <div className="empty-space"></div>
-                </div>
+                    <BackButton backtype ="정보 수정"/> {/*뒤로가기*/}
             </header>
 
             {/* 2. 본문 영역 */}
@@ -78,7 +76,7 @@ function EditInfo() {
                 {/* 하단 취소 / 계속 버튼 */}
             </main>
             <div className="info-bottom-btn-row">
-                <button className="btn-cancel">취소</button>
+                <button onClick={() => navigate(-1)} className="btn-cancel">취소</button>
                 <button className="btn-continue">계속</button>
             </div>
             {/* 3. 하단 탭 바 (마이페이지 👤 활성화) */}

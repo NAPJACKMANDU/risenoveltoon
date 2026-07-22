@@ -17,11 +17,7 @@ export default function Detail() {
         <div className="mobile-container">
             {/* 📱 상단 헤더 고정 */}
             <div className="header-fixed">
-                <div className="title-bar">
-                   <BackButton/>
-                    <h1 className="page-title">말강즈</h1>
-                    <div className="empty-space"></div>
-                </div>
+                <BackButton backtype="말강즈"/>
             </div>
 
             {/* 📜 상세페이지 본문 스크롤 영역 */}

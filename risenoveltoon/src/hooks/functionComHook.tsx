@@ -1,9 +1,9 @@
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
-import type {NovelToonListProps, CategoryProps} from "../interface/types";
+import type {NovelToonListProps, CategoryProps, BackButtonType} from "../interface/types";
 
 // 뒤로가기 공통
-export const BackButton = () => {
+export const BackButton = ({backtype} : BackButtonType) => {
     const navigate = useNavigate();
 
     const handleBack = () => {
@@ -11,9 +11,13 @@ export const BackButton = () => {
     };
 
     return (
+        <div className="title-bar">
         <button className="back-btn" onClick={handleBack}>
             〈
         </button>
+        <h1 className="page-title">{backtype}</h1>
+        <div className="empty-space"></div>
+        </div>
     );
 };
 

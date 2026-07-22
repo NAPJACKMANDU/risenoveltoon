@@ -29,27 +29,30 @@ export default function SearchPage() {
             <div className="header-fixed">
                 <div style={{ height: '8px' }}></div> {/* 서치바 레이아웃 간격 맞춤용 */}
             </div>
+            
+            <div className="search-bar-container">
+                <div className="search-input-wrapper">
+                    <span className="search-icon">🔍</span>
+                    <input type="text" placeholder="검색" className="search-input" />
+                </div>
+            </div>
+
+            <div className="category-tabs">
+               {categoryTitle.map((cat) => (
+                   <button
+                       key={cat.id}
+                       className={`tab-btn ${categoryId === cat.id ? 'active' : ''}`}
+                       onClick={() => setActiveTab(cat.id)}>
+                       {cat.title}
+                   </button>
+                    ))}
+            </div>
+
 
             {/* 📜 검색 본문 내용 */}
             <div className="scroll-content">
-                <div className="search-wrapper">
-                    <div className="search-input-box">
-                        <span>🔍</span>
-                        <input type="text" placeholder="검색" />
-                    </div>
-                </div>
 
-                <div className="category-tabs">
-                    {categoryTitle.map((cat) => (
-                        <button
-                            key={cat.id}
-                            className={`tab-btn ${categoryId === cat.id ? 'active' : ''}`}
-                            onClick={() => setActiveTab(cat.id)}>
-                            {cat.title}
-                        </button>
-                    ))}
-                </div>
-
+                
                 <div className="charge-section-title">최근 검색어</div>
                 <div className="tag-container">
                     {recentSearches.map((name, i) => (

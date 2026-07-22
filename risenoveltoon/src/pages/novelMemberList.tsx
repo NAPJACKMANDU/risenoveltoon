@@ -2,9 +2,10 @@ import "../css/componentsCss.css"
 import "../css/webToonMemberList.css"
 import {useState} from "react";
 import {novelToonData} from "../components/mainToon/webToonData"
-import {SearchItem, ToonMainBottom, NovelToonListCom} from "../components/mainToon/webToonMainCom"
+import {SearchItem, ToonMainBottom, NovelToonListCom } from "../components/mainToon/webToonMainCom"
 import {BackButton} from "../hooks/functionComHook";
-export const WebTooMembernList = () => {
+
+export const NovelMemberList = () => {
         const memberTitle = [
         { id: "shtaro", title: "쇼타로" },
         { id: "seongchan", title: "정성찬" },
@@ -12,7 +13,6 @@ export const WebTooMembernList = () => {
         { id: "wonbin", title: "박원빈" },
         { id: "sohee", title: "이소희" },
         { id: "chanyoung", title: "이찬영" }
-
     ];
 
     const [activeTab, setActiveTab] = useState('shtaro');
@@ -21,7 +21,7 @@ export const WebTooMembernList = () => {
         <>  
             <div className="mobile-container">
                 <header className="header-fixed">
-                        <BackButton backtype="웹툰"/> {/*뒤로가기*/}
+                            <BackButton backtype="소설"/> {/*뒤로가기*/}
                     {/* 필터 카테고리 탭 */}
                     <SearchItem/>
                         <div className="tab-container">
@@ -35,8 +35,8 @@ export const WebTooMembernList = () => {
                         ))}
                         </div>
                 </header>
-            {/* 3. 웹툰 리스트 (3열 그리드) */}
-               <NovelToonListCom data = {novelToonData} type ="webtoon" memberId={activeTab}/>
+            {/* 3. 소설 리스트 (3열 그리드) */}
+                <NovelToonListCom data={novelToonData} type ="novel" memberId = {activeTab}/>
              {/*하단 네비게이션 탭 바 */}
             <ToonMainBottom/>
       </div>
@@ -44,4 +44,4 @@ export const WebTooMembernList = () => {
   );
 };
 
-export default WebTooMembernList;
+export default NovelMemberList;

@@ -45,6 +45,27 @@ button {
     outline: none;
 }
 
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: black;
+}
+
+.search-icon {
+    margin-right: 8px;
+    color: #8e8e93;
+}
+
+.list-back-btn {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px;
+}
+
 .main-input, .form-input, .search-input {
     border: none;
     outline: none;

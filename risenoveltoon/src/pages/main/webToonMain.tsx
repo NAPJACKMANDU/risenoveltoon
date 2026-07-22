@@ -1,9 +1,9 @@
-import '../css/webToonMainCss.css'
-import "../css/componentsCss.css"
-import {NovelToonMain, ToonMainBottom} from '../components/mainToon/webToonMainCom.tsx'
+import '../../css/webToonMainCss.css'
+import "../../css/componentsCss.css"
+import {NovelToonMain, ToonMainBottom} from '../../components/mainToon/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
-import {novelToonData} from "../components/mainToon/webToonData"
+import {novelToonData} from "../../components/mainToon/webToonData.tsx"
 
 export const MainHome = () => {
     const categoryTitle = [
@@ -65,12 +65,12 @@ export const MainHome = () => {
 
                     <div className="horizontal-scroll-view">
                         <NovelToonMain data={novelToonData} type="webtoon"/>
-                    </div>
+                    </div> 
                 </div>
 
                 {/* 6. 소설 섹션 (시안 하단에 잘린 부분 대비용 빈 섹션 틀) */}
                 <div className="section-container">
-                    <div className="section-header">
+                    <div onClick={() => navigate("/novelMemberList")} className="section-header">
                         <span className="section-title">소설</span>
                         <span className="arrow-icon">❯</span>
                     </div>

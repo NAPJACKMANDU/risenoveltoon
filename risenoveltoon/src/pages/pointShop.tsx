@@ -16,11 +16,7 @@ export default function PointShop() {
         <div className="mobile-container">
             {/* 📱 상단 헤더 고정 */}
             <div className="header-fixed">
-                <div className="title-bar">
-                    <BackButton/>
-                    <h1 className="page-title">충전소</h1>
-                    <div className="empty-space"></div>
-                </div>
+                    <BackButton backtype ="충전소"/>
             </div>
 
             {/* 📜 충전소 본문 내용 */}

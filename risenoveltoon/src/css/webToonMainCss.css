@@ -1,17 +1,7 @@
 .search-bar-container {
     padding: 10px 16px;
 }
-.search-input-wrapper {
-    display: flex;
-    align-items: center;
-    background-color: #f1f3f5;
-    border-radius: 10px;
-    padding: 8px 12px;
-}
-.search-icon {
-    margin-right: 8px;
-    color: #8e8e93;
-}
+
 .search-input {
     font-size: 15px;
     width: 100%;

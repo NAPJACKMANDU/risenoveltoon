@@ -38,12 +38,7 @@ export const MyPage = () => {
         <div className="mypage-container">
             {/* 상단 헤더 */}
             <header className="myPageHeader">
-                <div className="title-bar">
-                    <BackButton/> {/*뒤로가기*/}
-                    <h1 className="page-title">마이페이지</h1>
-                    <div className="empty-space"></div>
-                </div>
-
+                    <BackButton backtype ="마이페이지"/> {/*뒤로가기*/}
             {/* 프로필 섹션 */}
             <div className="mypage-content">
             <section className="profile-section">

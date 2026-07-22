@@ -4,11 +4,12 @@
 .search-input-box {
     display: flex;
     align-items: center;
-    background-color: #f1f3f5;
-    border-radius: 8px;
-    padding: 10px 12px;
-    width: 100%;
-    box-sizing: border-box;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    color: black;
 }
 .search-input-box input {
     border: none;

@@ -10,9 +10,10 @@ import {
     PIONTSHOPSCREEN_PATH,
     SEARCHSCREEN_PATH,
     TOONVIEWER_PATH,
-    WEBTOONLIST_PATH
+    WEBTOONLIST_PATH,
+    NOVELMEMBERLIST_PATH
 } from "./index.ts";
-import MainHome from "../pages/webToonMain"
+import MainHome from "../pages/main/webToonMain.tsx"
 import MyPage from "../pages/webToonMyScreen";
 import BuyToonlist from "../pages/buyToonList";
 import EditInfo from "../pages/webToonEditInfo";
@@ -23,6 +24,7 @@ import PointShop from "../pages/pointShop";
 import SearchPage from "../pages/searchScreen";
 import ToonViewer from "../pages/toonViewer";
 import WebToonMemberList from "../pages/webToonMemberList.tsx";
+import NovelMemberList from "../pages/novelMemberList.tsx";
 
 export const RouterSetting = () => {
     return (
@@ -39,6 +41,7 @@ export const RouterSetting = () => {
             <Route path={SEARCHSCREEN_PATH()} element={<SearchPage/>}></Route>
             <Route path={TOONVIEWER_PATH()} element={<ToonViewer/>}></Route>
             <Route path={WEBTOONLIST_PATH()} element={<WebToonMemberList/>}></Route>
+            <Route path={NOVELMEMBERLIST_PATH()} element={<NovelMemberList/>}></Route>
         </Routes>
     )
 }

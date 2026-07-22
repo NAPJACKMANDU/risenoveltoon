@@ -29,11 +29,7 @@ export const BuyToonlist = () => {
         <div className="mobile-container">
             {/* 1. 상단 고정 헤더 (상태바 영역 + 타이틀) */}
             <header className="header-fixed">
-                <div className="title-bar">
-                    <BackButton/> {/*뒤로가기*/}
-                    <h1 className="page-title">구매 목록</h1>
-                    <div className="empty-space"></div>
-                </div>
+                    <BackButton backtype="구매 목록"/> {/*뒤로가기*/}
 
                 {/* 2. 검색창 */}
                 <div className="search-container">
