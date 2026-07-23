@@ -11,7 +11,8 @@ import {
     SEARCHSCREEN_PATH,
     TOONVIEWER_PATH,
     WEBTOONLIST_PATH,
-    NOVELMEMBERLIST_PATH
+    NOVELMEMBERLIST_PATH,
+    WEBTOONDETAIL_PATH
 } from "./index.ts";
 import MainHome from "../pages/main/webToonMain.tsx"
 import MyPage from "../pages/webToonMyScreen";
@@ -19,12 +20,13 @@ import BuyToonlist from "../pages/buyToonList";
 import EditInfo from "../pages/webToonEditInfo";
 import Login from "../pages/loginScreen";
 import SignUp from "../pages/signUpScreen";
-import Detail from "../pages/detailScreen";
+import Detail from "../pages/detail/detailScreen.tsx";
 import PointShop from "../pages/pointShop";
 import SearchPage from "../pages/searchScreen";
 import ToonViewer from "../pages/toonViewer";
-import WebToonMemberList from "../pages/webToonMemberList.tsx";
-import NovelMemberList from "../pages/novelMemberList.tsx";
+import WebToonMemberList from "../pages/webToonMemberList";
+import NovelMemberList from "../pages/novelMemberList";
+import WebToonDetail from "../pages/detail/webToonDetail"
 
 export const RouterSetting = () => {
     return (
@@ -42,6 +44,7 @@ export const RouterSetting = () => {
             <Route path={TOONVIEWER_PATH()} element={<ToonViewer/>}></Route>
             <Route path={WEBTOONLIST_PATH()} element={<WebToonMemberList/>}></Route>
             <Route path={NOVELMEMBERLIST_PATH()} element={<NovelMemberList/>}></Route>
+            <Route path={WEBTOONDETAIL_PATH()} element={<WebToonDetail/>}></Route>
         </Routes>
     )
 }

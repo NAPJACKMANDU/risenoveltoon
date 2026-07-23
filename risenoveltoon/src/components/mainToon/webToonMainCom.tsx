@@ -1,6 +1,6 @@
 import {SomeComponent} from '../../routes/webToonRoutes.tsx'
 import "../../css/webToonMyPageCss.css"
-import type {NovelToonMainProps, NovelToonType, NovelToonMemId} from "../../interface/types";
+import type {NovelToonMainProps, NovelToonType, NovelToonMemId, NovelToonDivision} from "../../interface/types";
 
 // 하단 메뉴바 공통
 export const ToonMainBottom = () => {
@@ -12,20 +12,24 @@ export const ToonMainBottom = () => {
 }
 
 // 웹툰과 소설을 보여주는 메인 화면단
-export const NovelToonMain = ({data, type, memberId} : NovelToonMainProps & NovelToonType & NovelToonMemId)=> {
+export const NovelToonMain = ({data, type, division} : NovelToonMainProps & NovelToonType & NovelToonDivision)=> {
     return(
         <>
         {data
             .filter((item) => item.type === type)
             .map((item) => (
-                <div key={item.id} className={memberId ? "webtoon-card" : "card-item"}>
-                    <div className={memberId ? "thumb-box" : "card-image-wrapper"}>
-                        <img src={item.img} alt={item.title} className={memberId ? "thumb-box" : "card-image-wrapper"}/>
+                <div key={item.id} className={division ? "webtoon-card" : "card-item"}>
+                    <div className={division ? "thumb-box" : "card-image-wrapper"}>
+                        <img src={item.img} alt={item.title} className={division ? "thumb-box" : "card-image-wrapper"}/>
                     </div>
-                    <span className={memberId ? "title" : "card-tag"}>{item.tag}</span>
-                    <span className={memberId ? "author" : "card-title"}>{item.title}</span>
+                    <div className="info-box">
+                        <div className='sub-info'>
+                            <span className="title" style={{ marginRight: '2px'}}>[{item.tag}]</span>
+                            <span className="title">{item.title}</span>
+                        </div>
+                            <span className="author">{item.author}</span>
+                    </div>
                 </div>
-
             ))}
         </>
     );
@@ -53,11 +57,14 @@ export const NovelToonListCom = ({data, type, memberId} : NovelToonMainProps & N
                    <div className="thumb-box">
                        <img src={item.img} alt={item.title} />
                    </div>
-               <div className="info-box">
-               <span className="title">{item.title}</span>
-               <span className="author">{item.author}</span>
-               </div>
-           </div>
+                    <div className="info-box">
+                        <div>
+                            <span className="title" style={{ marginRight: '2px'}}>[{item.tag}]</span>
+                            <span className="title">{item.title}</span>
+                        </div>
+                            <span className="author">{item.author}</span>
+                    </div>
+                </div>
            ))}
        </div>
     )

@@ -1,10 +1,12 @@
-import "../css/componentsCss.css"
-import "../css/detailScreenCss.css"
+import "../../css/componentsCss.css"
+import "../../css/detailScreenCss.css"
 
-import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
-import {BackButton} from "../hooks/functionComHook";
+import {ToonMainBottom} from "../../components/mainToon/webToonMainCom";
+import {BackButton} from "../../hooks/functionComHook";
+import { useNavigate } from "react-router-dom";
 
 export default function Detail() {
+    const navigate = useNavigate();
     const tags = ['쇼타로', '이찬영', '말강즈', '맏막즈', '타로앤톤'];
     const episodes = [
         { ep: '4화', date: '26.01.22', price: '300원' },
@@ -44,7 +46,7 @@ export default function Detail() {
 
                 <div className="episode-list">
                     {episodes.map((item, idx) => (
-                        <div className="episode-item" key={idx}>
+                        <div onClick={() => navigate("/WebToonDetail")}className="episode-item" key={idx}>
                             <div className="episode-left">
                                 <div className="episode-thumb" />
                                 <div className="episode-meta">

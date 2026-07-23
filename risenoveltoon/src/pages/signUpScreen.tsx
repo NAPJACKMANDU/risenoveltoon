@@ -1,8 +1,10 @@
 import "../css/signUpLoginCss.css";
 import "../css/componentsCss.css"
 import {BackButton} from "../hooks/functionComHook";
+import {useNavigate} from "react-router-dom";
 
 export default function SignUp() {
+    const navigate = useNavigate();
 
     return (
         <div className="mobile-container">
@@ -50,7 +52,7 @@ export default function SignUp() {
             </div>
             </main>
             <div className="bottom-btn-row">
-                <button type="button" className="cancel-btn">취소</button>
+                <button onClick={() => navigate(-1)}  type="button" className="cancel-btn">취소</button>
                 <button type="button" className="submit-btn">계속</button>
             </div>
         </div>

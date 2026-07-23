@@ -21,7 +21,7 @@ export const NovelMemberList = () => {
         <>  
             <div className="mobile-container">
                 <header className="header-fixed">
-                            <BackButton backtype="소설"/> {/*뒤로가기*/}
+                        <BackButton backtype="소설"/> {/*뒤로가기*/}
                     {/* 필터 카테고리 탭 */}
                     <SearchItem/>
                         <div className="tab-container">

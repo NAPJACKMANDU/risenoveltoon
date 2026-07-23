@@ -19,7 +19,11 @@ export interface NovelToonType {
 }
 
 export interface NovelToonMemId {
-    memberId? : string;
+    memberId : string;
+}
+
+export interface NovelToonDivision {
+    division? : string;
 }
 
 // 목록 웹툰
