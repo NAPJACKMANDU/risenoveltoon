@@ -1,10 +1,17 @@
+import margangs from '../../assets/img/margangs.jpg'
+import binanton1 from '../../assets/img/binanton1.jpg'
+import binanton2 from '../../assets/img/binanton2.jpg'
+import seongchanyoung from '../../assets/img/seongchanyoung.jpg'
+import twotons1 from '../../assets/img/twotons1.jpg'
+import twotons2 from '../../assets/img/twotons2.jpg'
+
 export const novelToonData = [
-  { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: '', memberId: 'shtaro', author: '민들레' },
-  { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon', img: '', memberId: 'seongchan', author: '초코바' },
-  { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel', img: '', memberId: 'eunseok', author: '하늘구름' },
-  { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon', img: '', memberId: 'wonbin', author: '그린티' },
-  { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel', img: '', memberId: 'sohee', author: '라떼홀릭' },
-  { id: 6, title: '흑막의숨겨진계획', tag: '#CP', type: 'novel', img: '', memberId: 'chanyoung', author: '은하수' },
+  { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: margangs, memberId: 'shtaro', author: '민들레' },
+  { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon', img: binanton1, memberId: 'seongchan', author: '초코바' },
+  { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel', img: seongchanyoung, memberId: 'eunseok', author: '하늘구름' },
+  { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon', img: twotons1, memberId: 'wonbin', author: '그린티' },
+  { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel', img: binanton2, memberId: 'sohee', author: '라떼홀릭' },
+  { id: 6, title: '흑막의숨겨진계획', tag: '#CP', type: 'novel', img: twotons2, memberId: 'chanyoung', author: '은하수' },
   { id: 7, title: '너와나의여름바다', tag: '#CP', type: 'webtoon', img: '', memberId: 'shtaro', author: '바다리' },
   { id: 8, title: '구남친이돌아왔다', tag: '#CP', type: 'webtoon', img: '', memberId: 'seongchan', author: '레몬차' },
   { id: 9, title: '레벨업하는막내도련님', tag: '#CP', type: 'novel', img: '', memberId: 'eunseok', author: '아침햇살' },

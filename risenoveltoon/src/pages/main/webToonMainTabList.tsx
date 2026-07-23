@@ -3,7 +3,7 @@ import "../../css/componentsCss.css"
 import {NovelToonMain} from '../../components/mainToon/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
 import type { NovelToonMainProps, NovelToonType} from '../../interface/types.tsx';
-
+import binanton3 from '../../assets/img/binanton3.jpg'
 
 export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToonType) => {
     const navigate = useNavigate();
@@ -15,8 +15,8 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
             <>
                 {/* 4. 메인 배너 (말강즈 배너) */}
                 <div className="main-banner">
-                    <img src="https://via.placeholder.com/400x250" alt="Main Banner" className="banner-img" />
-                    <div className="banner-title-badge">말강즈</div>
+                    <img src={binanton3} alt="Main Banner" className="banner-img" />
+                    <div className="banner-title-badge">빈앤톤</div>
                     <div className="banner-pagination">
                         <span className="dot active"></span>
                         <span className="dot"></span>

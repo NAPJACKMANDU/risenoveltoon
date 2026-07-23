@@ -20,7 +20,11 @@ export const NovelToonMain = ({data, type, division} : NovelToonMainProps & Nove
             .map((item) => (
                 <div key={item.id} className={division ? "webtoon-card" : "card-item"}>
                     <div className={division ? "thumb-box" : "card-image-wrapper"}>
-                        <img src={item.img} alt={item.title} className={division ? "thumb-box" : "card-image-wrapper"}/>
+                        <img 
+                            src={item.img} 
+                            alt={item.title} 
+                            className="card-img"
+                        />
                     </div>
                     <div className="info-box">
                         <div className='sub-info'>
