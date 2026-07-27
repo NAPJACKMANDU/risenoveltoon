@@ -6,6 +6,7 @@ import {useState} from "react";
 import {WebToonMainTabList} from "../main/webToonMainTabList.tsx"
 import {novelToonData} from "../../components/mainToon/webToonData.tsx"
 
+
 export const MainHome = () => {
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
