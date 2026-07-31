@@ -3,7 +3,7 @@ import "../../css/detailScreenCss.css"
 
 import {ToonMainBottom} from "../../components/mainToon/webToonMainCom";
 import {BackButton} from "../../hooks/functionComHook";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Detail() {
     const navigate = useNavigate();
@@ -15,20 +15,22 @@ export default function Detail() {
         { ep: '1화', date: '26.01.01', price: '무료' },
     ];
 
+    const {state} = useLocation();
+
     return (
         <div className="mobile-container">
             {/* 📱 상단 헤더 고정 */}
             <div className="header-fixed">
-                <BackButton backtype="말강즈"/>
+                <BackButton backtype={state.title}/>
             </div>
 
             {/* 📜 상세페이지 본문 스크롤 영역 */}
             <div className="scroll-content">
                 <div className="detail-banner-card">
                     {/* 실제 이미지 적용 시 배경색 제거하고 src 넣으면 됨 */}
-                    <div className="banner-cover-img" style={{ backgroundColor: '#e2f558 ' }} />
+                    <div className="banner-cover-img" style={ state.img ? state.img : { backgroundColor: '#e2f558' }}/>
                     <div className="banner-info-overlay">
-                        <div className="banner-title">말강즈</div>
+                        <div className="banner-title">{state.title}</div>
                         <div className="banner-buttons">
                             <button className="overlay-btn">첫화보기</button>
                             <button className="overlay-btn">이어보기</button>

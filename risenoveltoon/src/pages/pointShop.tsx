@@ -3,14 +3,18 @@ import "../css/pointShopCss.css"
 
 import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
 import {BackButton} from "../hooks/functionComHook";
+import { useState } from "react";
 
 export default function PointShop() {
-    const points = ['1000P', '3000P', '5000P', '7000P', '9000P', '10,000P'];
-
-
-    const coinButtonClick =  (point : string) => {
-  ;
-    };
+    const points = [
+        {id : 1, coin : '1,000P'},
+        {id : 2, coin : '3,000P'}, 
+        {id : 3, coin : '5,000P'}, 
+        {id : 4, coin : '7,000P'}, 
+        {id : 5, coin : '9,000P'}, 
+        {id : 6, coin : '10,000P'}
+    ];
+    const [isCheck, setiscCheck] = useState(1);
 
     return (
         <div className="mobile-container">
@@ -22,13 +26,13 @@ export default function PointShop() {
             {/* 📜 충전소 본문 내용 */}
             <div className="scroll-content">
                 <div className="charge-list">
-                    {points.map((point, idx) => (
-                        <div className="charge-item" key={idx}>
-                            <div className="charge-left">
-                                <button type="button" onClick = {() => coinButtonClick(point)} className="radio-circle"></button>
-                                <span>{point}</span>
+                    {points.map((point) => (
+                        <div className="charge-item" onClick = {() => setiscCheck(point.id)} key={point.id}>
+                            <div className="charge-left" >
+                                <button type="button" key={point.id} className={isCheck === point.id ? 'radio-change' : 'radio-circle'}></button>
+                                <span>{point.coin}</span>
                             </div>
-                            <span className="charge-price">{point.replace('P', '원')}</span>
+                            <span className="charge-price">{point.coin.replace('P', '원')}</span>
                         </div>
                     ))}
                 </div>

@@ -1,6 +1,13 @@
 import {SomeComponent} from '../../routes/webToonRoutes.tsx'
 import "../../css/webToonMyPageCss.css"
-import type {NovelToonMainProps, NovelToonType, NovelToonMemId, NovelToonDivision} from "../../interface/types";
+import type  {NovelToonMainProps, NovelToonType, NovelToonMemId, NovelToonDivision} from "../../interface/types";
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+
+// Swiper 기본 스타일 불러오기
+import "swiper/css";
+import "swiper/css/pagination";
 
 // 하단 메뉴바 공통
 export const ToonMainBottom = () => {
@@ -10,6 +17,46 @@ export const ToonMainBottom = () => {
         </div>
     )
 }
+// 메인 웹툰 & 소설 랜덤 5개 추출 배너
+export const MainBanner = ({ data }: NovelToonMainProps) => {
+  const [randomList, setRandomList] = useState<typeof data>([]);
+
+  // 처음 로드될 때 랜덤 5개 추출
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const shuffled = [...data].sort(() => 0.5 - Math.random());
+      setRandomList(shuffled.slice(0, 5));
+    }
+  }, [data]);
+
+  if (!randomList || randomList.length === 0) return null;
+
+  return (
+    <div className="main-banner-wrapper">
+      <Swiper
+        modules={[Autoplay, Pagination]}
+        spaceBetween={0}
+        slidesPerView={1}
+        loop={true} // 무한 루프
+        autoplay={{
+          delay: 3000, // 3초마다 자동으로 넘어감
+          disableOnInteraction: false, // 사용자가 터치한 뒤에도 자동 슬라이드 유지
+        }}
+        pagination={{ clickable: true }} // 아래 Dot 클릭 가능
+        className="mySwiper"
+      >
+        {randomList.map((item) => (
+          <SwiperSlide key={item.id}>
+            <div className="main-banner">
+              <img src={item.img} alt={item.title} className="banner-img" />
+              <div className="banner-title-badge">{item.title}</div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
 
 // 웹툰과 소설을 보여주는 메인 화면단
 export const NovelToonMain = ({data, type, division} : NovelToonMainProps & NovelToonType & NovelToonDivision)=> {

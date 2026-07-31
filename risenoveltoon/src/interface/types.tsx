@@ -1,4 +1,4 @@
-// 메인 웹툰 
+// 메인 웹툰 & 소설
 export interface novelToonMainData {
     id: number | string;
     title: string;
@@ -48,3 +48,14 @@ export interface CategoryProps {
 export interface BackButtonType {
     backtype : string;
 }
+
+export interface SignUpParams {
+    index : string;
+    label : string;
+    formData: Record<string, string>;
+    setFormData: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+    error: Record<string, string>;
+    setError: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+    inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+}
+
