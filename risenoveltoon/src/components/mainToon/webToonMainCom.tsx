@@ -1,6 +1,6 @@
 import {SomeComponent} from '../../routes/webToonRoutes.tsx'
 import "../../css/webToonMyPageCss.css"
-import type  {NovelToonMainProps, NovelToonType, NovelToonMemId, NovelToonDivision} from "../../interface/types";
+import type  {NovelToonMainProps, NovelToonType, NovelToonMemId, NovelToonDivision} from "../../interface/types/novelToon.tsx";
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";

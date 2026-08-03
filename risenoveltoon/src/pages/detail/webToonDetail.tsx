@@ -1,8 +1,7 @@
 import React from 'react';
 import { 
   ChevronLeft, 
-  ChevronDown, 
-  ChevronRight, 
+  ChevronRight,
   Heart, 
   MessageSquare, 
   List 
@@ -25,7 +24,6 @@ export const WebToonDetail: React.FC<ToonViewerProps> = ({
   title = "말강즈",
   likeCount = 1234,
   commentCount = 1234,
-  onBack,
   onListClick,
   onPrevClick,
   onNextClick,

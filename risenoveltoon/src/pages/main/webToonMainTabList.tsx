@@ -2,7 +2,7 @@ import '../../css/webToonMainCss.css'
 import "../../css/componentsCss.css"
 import {NovelToonMain, MainBanner} from '../../components/mainToon/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
-import type { NovelToonMainProps, NovelToonType} from '../../interface/types.tsx';
+import type { NovelToonMainProps, NovelToonType} from '../../interface/types/novelToon.tsx';
 
 export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToonType) => {
     const navigate = useNavigate();

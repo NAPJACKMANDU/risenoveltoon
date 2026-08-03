@@ -39,7 +39,7 @@ export interface NovelToonListProps {
     listData: novelToonListData[];
 }
 
-// 목록 Id - 전체 웹툰 소설 찜 등
+// 구매 목록 Id - 전체 웹툰 소설 찜 등
 export interface CategoryProps {
     categoryId : string;
 }

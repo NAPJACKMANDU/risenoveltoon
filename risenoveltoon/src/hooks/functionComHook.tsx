@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
-import type {NovelToonListProps, CategoryProps, BackButtonType} from "../interface/types";
+import type {NovelToonListProps, CategoryProps, BackButtonType} from "../interface/types/novelToon.tsx";
 
 // 뒤로가기 공통
 export const BackButton = ({backtype} : BackButtonType) => {

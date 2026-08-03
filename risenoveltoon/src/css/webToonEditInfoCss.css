@@ -39,7 +39,7 @@
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    padding: 12px 24px 20px 24px;
+    padding: 12px 16px 20px 16px;
     background-color: #ffffff;
     padding-bottom: calc(var(--bottom-bar-height) + 20px);
 }

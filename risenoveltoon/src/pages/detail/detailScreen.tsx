@@ -4,6 +4,7 @@ import "../../css/detailScreenCss.css"
 import {ToonMainBottom} from "../../components/mainToon/webToonMainCom";
 import {BackButton} from "../../hooks/functionComHook";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Detail() {
     const navigate = useNavigate();
@@ -15,6 +16,13 @@ export default function Detail() {
         { ep: '1화', date: '26.01.01', price: '무료' },
     ];
 
+    const [isLoveOn, setIsLoveOn] = useState<boolean>(false);
+
+    const handleClick = () => {
+            setIsLoveOn((prev) => !prev);
+    };
+
+    // 구매 목록에서 데이터 가져오기
     const {state} = useLocation();
 
     return (
@@ -34,7 +42,7 @@ export default function Detail() {
                         <div className="banner-buttons">
                             <button className="overlay-btn">첫화보기</button>
                             <button className="overlay-btn">이어보기</button>
-                            <button className="overlay-btn primary">❤️</button>
+                            <button onClick={handleClick} className="overlay-btn primary">{isLoveOn ? "❤️" : "🤍" }</button>
                             <button className="overlay-btn">💬</button>
                         </div>
                     </div>
