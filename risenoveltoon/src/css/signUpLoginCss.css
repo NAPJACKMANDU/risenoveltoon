@@ -136,7 +136,7 @@ form.sign-content {
     font-size: 18px;
     font-weight: bold;
     align-items: center;
-    margin-bottom: 16px;
+    margin: 16px 0 16px 0;
 }
 .round-link-btn {
     width: 100%;
@@ -148,4 +148,13 @@ form.sign-content {
     font-weight: 500;
     color: #000000;
     margin-top: 20px;
+}
+
+.duplicate_check {
+    flex: 1;
+    background-color: #fcca92;
+    color: #000000;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
 }

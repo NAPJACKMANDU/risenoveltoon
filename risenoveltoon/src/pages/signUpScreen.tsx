@@ -6,9 +6,12 @@ import {type ChangeEvent, useState} from "react";
 import type {FormErrors, SignUpForm} from "../interface/types/auth.tsx";
 import {validateField, validateSignUpForm} from "../utils/validation.tsx";
 import {joinApi} from "../api/JoinLogin/joinApi.tsx";
+import PurchaseModal from "../common/modalCom.tsx";
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+
 
     const [signupForm, setSignupForm] = useState<SignUpForm>({
         id: "",
@@ -40,6 +43,11 @@ export default function SignUp() {
         }
     };
 
+    const handleConfirmAndNavigate = () => {
+            setIsJoinModalOpen(false); // 모달 닫고
+        navigate("/loginScreen");           // 로그인 페이지로 이동!
+  };
+
     // 폼 제출 핸들러
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -49,9 +57,9 @@ export default function SignUp() {
 
         // 에러가 없는 경우 제출 로직 실행
         if (Object.keys(formErrors).length === 0) {
-            alert("회원가입 요청을 진행합니다.");
             await joinApi(signupForm);
-            // TODO: API 요청 (예: await signUpApi(signupForm))
+            setIsJoinModalOpen(true);
+           
         }
     };
 
@@ -74,7 +82,8 @@ export default function SignUp() {
 
                     {/* 아이디 */}
                     <div className="input-group">
-                        <label>아이디</label>
+                        <label style={{ marginRight: '5px'}}>아이디</label>
+                        <button className="duplicate_check">중복확인</button>
                         <input
                             type="text"
                             name="id"
@@ -86,6 +95,7 @@ export default function SignUp() {
                             onChange={handleChange}
                         />
                         {errors.id && <span className="error-text">{errors.id}</span>}
+                
                     </div>
 
                     {/* 비밀번호 */}
@@ -120,7 +130,8 @@ export default function SignUp() {
 
                     {/* 닉네임 */}
                     <div className="input-group">
-                        <label>닉네임</label>
+                        <label style={{ marginRight: '5px'}}>닉네임</label>
+                        <button className="duplicate_check">중복확인</button>
                         <input
                             type="text"
                             name="nickname"
@@ -167,6 +178,15 @@ export default function SignUp() {
                     <button type="submit" className="submit-btn">계속</button>
                 </div>
             </form>
+
+             <PurchaseModal 
+                modalProps = {{
+                    isOpen: isJoinModalOpen,
+                    title: "회원가입",
+                    description: "회원가입이 완료되었습니다",
+                    cancelText : "닫기",
+                    onCancel : handleConfirmAndNavigate
+            }}/>
         </div>
     );
 }

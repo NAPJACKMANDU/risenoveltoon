@@ -1,6 +1,6 @@
 import '../../css/webToonMainCss.css'
 import "../../css/componentsCss.css"
-import {ToonMainBottom} from '../../components/mainToon/webToonMainCom.tsx'
+import {ToonMainBottom} from '../../common/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {WebToonMainTabList} from "../main/webToonMainTabList.tsx"

@@ -1,7 +1,7 @@
 import "../../css/componentsCss.css"
 import "../../css/detailScreenCss.css"
 
-import {ToonMainBottom} from "../../components/mainToon/webToonMainCom";
+import {ToonMainBottom} from "../../common/webToonMainCom";
 import {BackButton} from "../../hooks/functionComHook";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";

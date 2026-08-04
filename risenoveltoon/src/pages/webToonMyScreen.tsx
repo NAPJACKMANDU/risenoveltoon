@@ -6,7 +6,7 @@ import {
     FiChevronDown,
     FiChevronUp
 } from 'react-icons/fi';
-import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
+import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import {useState} from "react";
 

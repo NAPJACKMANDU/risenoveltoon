@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
+import {ToonMainBottom} from "../common/webToonMainCom";
 import { useNavigate } from "react-router-dom";
 import "../css/componentsCss.css"
 import "../css/searchScreenCss.css"

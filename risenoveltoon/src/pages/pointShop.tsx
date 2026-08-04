@@ -1,7 +1,7 @@
 import "../css/componentsCss.css"
 import "../css/pointShopCss.css"
 
-import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
+import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton} from "../hooks/functionComHook";
 import { useState } from "react";
 

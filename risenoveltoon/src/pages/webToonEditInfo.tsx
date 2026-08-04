@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import '../css/webToonEditInfoCss.css';
 import "../css/componentsCss.css"
-import {ToonMainBottom} from "../components/mainToon/webToonMainCom";
+import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton} from "../hooks/functionComHook";
 import {useNavigate} from "react-router-dom";
 

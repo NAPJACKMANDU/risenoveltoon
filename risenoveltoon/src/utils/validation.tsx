@@ -3,6 +3,14 @@ import type {SignUpForm, FormErrors} from "../interface/types/auth.tsx";
 /**
  * 개별 필드 유효성 검사 함수
  */
+
+const cpNameValue = ['숕숑', '숕석', '숕넨', '숕또', '숕톤', '숕른',
+                     '석숕', '석숑', '돌넨', '석또', '돌톤', '돌른',
+                     '숑숕', '숑석', '숑넨', '숑또', '숑톤', '숑른',
+                     '넨숕', '넨석', '넨숑', '넨또', '넨톤', '넨른',
+                     '히숕', '또석', '히숑', '히넨', '또톤', '또른',
+                     '톤숕', '톤석', '톤숑', '톤넨', '톤또', '톤른'
+]
 export const validateField = (
     name: keyof SignUpForm,
     value: string,
@@ -33,6 +41,7 @@ export const validateField = (
 
         case "cpName":
             if (value.length > 2) return "주 CP명은 최대 2자까지 가능합니다.";
+            if (!cpNameValue.includes(value)) return "CP명 확인해 주세요.";
             return "";
 
         default:

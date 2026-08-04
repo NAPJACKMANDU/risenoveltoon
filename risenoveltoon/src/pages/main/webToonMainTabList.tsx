@@ -1,6 +1,6 @@
 import '../../css/webToonMainCss.css'
 import "../../css/componentsCss.css"
-import {NovelToonMain, MainBanner} from '../../components/mainToon/webToonMainCom.tsx'
+import {NovelToonMain, MainBanner} from '../../common/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
 import type { NovelToonMainProps, NovelToonType} from '../../interface/types/novelToon.tsx';
 

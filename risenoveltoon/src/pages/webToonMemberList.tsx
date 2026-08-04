@@ -2,7 +2,7 @@ import "../css/componentsCss.css"
 import "../css/webToonMemberList.css"
 import {useState} from "react";
 import {novelToonData} from "../components/mainToon/webToonData"
-import {SearchItem, ToonMainBottom, NovelToonListCom} from "../components/mainToon/webToonMainCom"
+import {SearchItem, ToonMainBottom, NovelToonListCom} from "../common/webToonMainCom"
 import {BackButton} from "../hooks/functionComHook";
 export const WebTooMembernList = () => {
         const memberTitle = [
