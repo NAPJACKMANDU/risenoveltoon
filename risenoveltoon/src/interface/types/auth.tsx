@@ -7,3 +7,8 @@ export interface SignUpForm {
 }
 
 export type FormErrors = Partial<Record<keyof SignUpForm, string>>;
+
+export interface CheckParam {
+    title : string;
+    checkData : string;
+}

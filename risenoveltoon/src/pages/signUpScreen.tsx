@@ -6,7 +6,7 @@ import {type ChangeEvent, useState} from "react";
 import type {FormErrors, SignUpForm} from "../interface/types/auth.tsx";
 import {validateField, validateSignUpForm} from "../utils/validation.tsx";
 import {joinApi} from "../api/JoinLogin/joinApi.tsx";
-import PurchaseModal from "../common/modalCom.tsx";
+import {PurchaseModal, duplicateCheck} from "../common/modalCom.tsx";
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -45,8 +45,8 @@ export default function SignUp() {
 
     const handleConfirmAndNavigate = () => {
             setIsJoinModalOpen(false); // 모달 닫고
-        navigate("/loginScreen");           // 로그인 페이지로 이동!
-  };
+            navigate("/loginScreen");
+    };
 
     // 폼 제출 핸들러
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
@@ -82,8 +82,10 @@ export default function SignUp() {
 
                     {/* 아이디 */}
                     <div className="input-group">
+                        <div>
                         <label style={{ marginRight: '5px'}}>아이디</label>
-                        <button className="duplicate_check">중복확인</button>
+                        <button type="button" onClick={() => duplicateCheck({ checkData: signupForm.id, title: "id" })} className="duplicate_check">중복확인</button>
+                        </div>
                         <input
                             type="text"
                             name="id"
@@ -131,7 +133,7 @@ export default function SignUp() {
                     {/* 닉네임 */}
                     <div className="input-group">
                         <label style={{ marginRight: '5px'}}>닉네임</label>
-                        <button className="duplicate_check">중복확인</button>
+                        <button type="button" className="duplicate_check">중복확인</button>
                         <input
                             type="text"
                             name="nickname"

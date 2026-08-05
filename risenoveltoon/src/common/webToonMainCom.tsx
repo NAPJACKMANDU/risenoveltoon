@@ -35,8 +35,12 @@ export const MainBanner = ({ data }: NovelToonMainProps) => {
     <div className="main-banner-wrapper">
       <Swiper
         modules={[Autoplay, Pagination]}
+        // Swiper에서 사용할 기능 모듈을 지정, 
+        // 자동슬라이드와 페이지네이션 기능 활성화
         spaceBetween={0}
+        // 슬라이드 사이 간격 설정
         slidesPerView={1}
+        // 한번에 보여줄 슬라이드 개수 설정
         loop={true} // 무한 루프
         autoplay={{
           delay: 3000, // 3초마다 자동으로 넘어감
