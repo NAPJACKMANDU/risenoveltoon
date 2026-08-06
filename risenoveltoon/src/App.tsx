@@ -3,13 +3,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 function App() {
-
   return (
-
       <BrowserRouter>
         <RouterSetting/>
       </BrowserRouter>
   );
 }
 
-export default App;
+export default App; 

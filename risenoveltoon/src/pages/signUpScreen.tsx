@@ -6,12 +6,14 @@ import {type ChangeEvent, useState} from "react";
 import type {FormErrors, SignUpForm} from "../interface/types/auth.tsx";
 import {validateField, validateSignUpForm} from "../utils/validation.tsx";
 import {joinApi} from "../api/JoinLogin/joinApi.tsx";
-import {PurchaseModal, duplicateCheck} from "../common/modalCom.tsx";
+import {PurchaseModal, DuplicateCheck} from "../common/modalCom.tsx";
 
 export default function SignUp() {
     const navigate = useNavigate();
     const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
-
+    const [modalMessage, setModalMessage] = useState('');
+    const [nextPageOpen, setNextPageOpen] = useState(false);
+    const [errors, setErrors] = useState<FormErrors>({});
 
     const [signupForm, setSignupForm] = useState<SignUpForm>({
         id: "",
@@ -20,8 +22,6 @@ export default function SignUp() {
         nickname: "",
         cpName: "",
     });
-
-    const [errors, setErrors] = useState<FormErrors>({});
 
     // 입력값 변경 핸들러
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ export default function SignUp() {
 
     const handleConfirmAndNavigate = () => {
             setIsJoinModalOpen(false); // 모달 닫고
-            navigate("/loginScreen");
+            nextPageOpen ? navigate("/loginScreen") : '';
     };
 
     // 폼 제출 핸들러
@@ -55,12 +55,21 @@ export default function SignUp() {
         const formErrors = validateSignUpForm(signupForm);
             setErrors(formErrors);
 
-        // 에러가 없는 경우 제출 로직 실행
-        if (Object.keys(formErrors).length === 0) {
-            await joinApi(signupForm);
-            setIsJoinModalOpen(true);
-           
-        }
+        try {
+            if (Object.keys(formErrors).length === 0) {
+                const response =  await joinApi(signupForm);
+                if(response) {
+                    setModalMessage(response.data?.message);
+                    setIsJoinModalOpen(true);
+                    setNextPageOpen(true)
+                } 
+            }    
+        } catch (error : any){
+                setModalMessage(error.response?.data?.detail);
+                setIsJoinModalOpen(true);
+                setNextPageOpen(false);
+            }
+        
     };
 
     return (
@@ -84,7 +93,10 @@ export default function SignUp() {
                     <div className="input-group">
                         <div>
                         <label style={{ marginRight: '5px'}}>아이디</label>
-                        <button type="button" onClick={() => duplicateCheck({ checkData: signupForm.id, title: "id" })} className="duplicate_check">중복확인</button>
+                        <DuplicateCheck checkData ={signupForm.id} title = "id"
+                            isDisabled = {!signupForm.id || Boolean(errors.id) || signupForm.id.length < 4} 
+                            errorDisabled = {Boolean(errors.id)}/>
+                           
                         </div>
                         <input
                             type="text"
@@ -133,7 +145,9 @@ export default function SignUp() {
                     {/* 닉네임 */}
                     <div className="input-group">
                         <label style={{ marginRight: '5px'}}>닉네임</label>
-                        <button type="button" className="duplicate_check">중복확인</button>
+                        <DuplicateCheck checkData ={signupForm.nickname} title = "nickname"
+                        isDisabled = {!signupForm.nickname || Boolean(errors.nickname) || signupForm.nickname.length < 1}
+                        errorDisabled = {Boolean(errors.nickname)}/>
                         <input
                             type="text"
                             name="nickname"
@@ -184,8 +198,7 @@ export default function SignUp() {
              <PurchaseModal 
                 modalProps = {{
                     isOpen: isJoinModalOpen,
-                    title: "회원가입",
-                    description: "회원가입이 완료되었습니다",
+                    description: modalMessage,
                     cancelText : "닫기",
                     onCancel : handleConfirmAndNavigate
             }}/>

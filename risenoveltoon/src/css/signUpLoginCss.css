@@ -7,6 +7,7 @@
     display: flex;
     justify-content: space-between;
     gap: 12px;
+    margin-top: 5px;
 }
 .auth-btn {
     flex: 1;
@@ -30,6 +31,7 @@
     padding: 0 16px;
     font-size: 14px;
     color: #000000;
+    margin-top: 5px;
 }
 .main-input::placeholder, .form-input::placeholder {
     color: #b0b0b0;
@@ -132,11 +134,17 @@ form.sign-content {
     letter-spacing: 2px;
     margin-bottom: 40px;
 }
+
+.login-edit-form{
+    align-items: center;
+    padding: 7px 16px
+}
+
 .login-subtitle {
     font-size: 18px;
     font-weight: bold;
     align-items: center;
-    margin: 16px 0 16px 0;
+    margin: 16px 0 0;
 }
 .round-link-btn {
     width: 100%;
@@ -157,4 +165,10 @@ form.sign-content {
     border-radius: 1px;
     font-size: 14px;
     font-weight: 600;
+}
+
+.duplicate_check:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
