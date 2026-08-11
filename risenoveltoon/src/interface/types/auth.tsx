@@ -1,6 +1,6 @@
 // 회원가입
 export interface SignUpForm {
-    id: string;
+    userId: string;
     password: string;
     passwordConfirm: string;
     nickname: string;
@@ -18,6 +18,6 @@ export interface CheckParam {
 }
 
 export interface LoginForm {
-    id : string;
-    password : string;
+    userId? : string;
+    password? : string;
 }

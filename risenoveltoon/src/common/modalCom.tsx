@@ -1,7 +1,7 @@
 import type { PurchaseModalProps } from "../interface/types/componet";
 import "../css/componentsCss.css"
 import type { CheckParam } from "../interface/types/auth";
-import { duplicateCheckApi } from "../api/JoinLogin/joinApi";
+import { duplicateCheckApi } from "../api/JoinLogin/joinLoginApi";
 import { useEffect, useState } from "react";
 
 

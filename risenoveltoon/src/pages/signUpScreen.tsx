@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {type ChangeEvent, useState} from "react";
 import type {FormErrors, SignUpForm} from "../interface/types/auth.tsx";
 import {validateField, validateSignUpForm} from "../utils/validation.tsx";
-import {joinApi} from "../api/JoinLogin/joinApi.tsx";
+import {joinApi} from "../api/JoinLogin/joinLoginApi.tsx";
 import {PurchaseModal, DuplicateCheck} from "../common/modalCom.tsx";
 
 export default function SignUp() {
@@ -16,7 +16,7 @@ export default function SignUp() {
     const [errors, setErrors] = useState<FormErrors>({});
 
     const [signupForm, setSignupForm] = useState<SignUpForm>({
-        id: "",
+        userId: "",
         password: "",
         passwordConfirm: "",
         nickname: "",
@@ -93,22 +93,22 @@ export default function SignUp() {
                     <div className="input-group">
                         <div>
                         <label style={{ marginRight: '5px'}}>아이디</label>
-                        <DuplicateCheck checkData ={signupForm.id} title = "id"
-                            isDisabled = {!signupForm.id || Boolean(errors.id) || signupForm.id.length < 4} 
-                            errorDisabled = {Boolean(errors.id)}/>
+                        <DuplicateCheck checkData ={signupForm.userId} title = "userId"
+                            isDisabled = {!signupForm.userId || Boolean(errors.userId) || signupForm.userId.length < 4} 
+                            errorDisabled = {Boolean(errors.userId)}/>
                            
                         </div>
                         <input
                             type="text"
-                            name="id"
-                            className={`main-input ${errors.id ? "input-error" : ""}`}
+                            name="userId"
+                            className={`main-input ${errors.userId ? "input-error" : ""}`}
                             placeholder="아이디를 입력해 주세요"
                             maxLength={12}
                             minLength={4}
-                            value={signupForm.id}
+                            value={signupForm.userId}
                             onChange={handleChange}
                         />
-                        {errors.id && <span className="error-text">{errors.id}</span>}
+                        {errors.userId && <span className="error-text">{errors.userId}</span>}
                 
                     </div>
 

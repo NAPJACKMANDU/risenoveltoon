@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {BackButton} from "../hooks/functionComHook";
 import { useState } from "react";
 import { PurchaseModal } from "../common/modalCom";
-import { loginApi } from "../api/JoinLogin/joinApi";
+import { loginApi } from "../api/JoinLogin/joinLoginApi";
 import type { LoginForm } from "../interface/types/auth";
 
 export default function Login() {
@@ -16,9 +16,14 @@ export default function Login() {
             setIsLoginModalOpen(false); // 모달 닫고
     };
 
-    const [loginForm, setLoginForm] = useState<LoginForm>({
-            id: "",
-            password: ""
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setLoginForm((prev) => ({ ...prev, [name]: value }));
+    }
+
+    const [loginForm, setLoginForm] = useState<LoginForm>(() => {
+        const saved = localStorage.getItem('jwtToken');
+        return saved ? JSON.parse(saved) : {userId : "", password : ""};
     });
 
     const loginSubmit = async (e: { preventDefault: () => void; }) => { 
@@ -27,6 +32,14 @@ export default function Login() {
        try {
                const response =  await loginApi(loginForm);
                if(response) {
+                    console.log(response)
+                    const jwtToken  = response.data.data;
+
+                    localStorage.setItem("jwtToken", JSON.stringify({
+                              accessToken: jwtToken.accessToken,
+                              refreshToken: jwtToken.refreshToken
+                        }));
+
                     navigate("/")
                } 
            }    
@@ -47,8 +60,22 @@ export default function Login() {
                 </header>
             <form onSubmit={loginSubmit}>
                 <div className="login-edit-form">
-                   <input type="text" name="id" className="main-input" placeholder="아이디" style={{marginBottom: '12px'}} />
-                   <input type="password" name="password" className="main-input" placeholder="비밀번호" style={{marginBottom: '16px'}} />
+                   <input 
+                   type="text" 
+                   name="userId"
+                   value={loginForm.userId} 
+                   className="main-input" 
+                   placeholder="아이디" 
+                   onChange={handleChange}
+                   style={{marginBottom: '12px'}} />
+                   <input 
+                   type="password"  
+                   value={loginForm.password}  
+                   name="password" 
+                   className="main-input" 
+                   placeholder="비밀번호" 
+                   onChange={handleChange} 
+                   style={{marginBottom: '16px'}} />
 
                    <div className="login-bottom-btn">
                        <button type="submit" className="submit-btn">계속</button>

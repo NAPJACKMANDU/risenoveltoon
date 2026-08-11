@@ -27,21 +27,22 @@ import ToonViewer from "../pages/toonViewer";
 import WebToonMemberList from "../pages/webToonMemberList";
 import NovelMemberList from "../pages/novelMemberList";
 import WebToonDetail from "../pages/detail/webToonDetail"
+import PrivateRoute from "./privateRoute.tsx";
 
 export const RouterSetting = () => {
     return (
         <Routes>
             <Route path={MAIN_PATH()} element={<MainHome />}></Route>
             {/*<Route path="/" element={</>}></Route>*/}
-            <Route path={BUYTOONLIST_PATH()} element={<BuyToonlist/>}></Route>
-            <Route path={WEBTOONMYPAGE_PATH()} element={<MyPage />}></Route>
-            <Route path={WEBTOONEDITINFO_PATH()} element={<EditInfo/>}></Route>
+            <Route path={BUYTOONLIST_PATH()} element={<PrivateRoute><BuyToonlist/></PrivateRoute>}></Route>
+            <Route path={WEBTOONMYPAGE_PATH()} element={<PrivateRoute><MyPage/></PrivateRoute>}></Route>
+            <Route path={WEBTOONEDITINFO_PATH()} element={<PrivateRoute><EditInfo/></PrivateRoute>}></Route>
             <Route path={LOGINSCREEN_PATH()} element={<Login/>}></Route>
             <Route path={SIGNUPSCREEN_PATH()} element={<SignUp/>}></Route>
             <Route path={DETAILSCREEN_PATH()} element={<Detail/>}></Route>
-            <Route path={PIONTSHOPSCREEN_PATH()} element={<PointShop/>}></Route>
+            <Route path={PIONTSHOPSCREEN_PATH()} element={<PrivateRoute><PointShop/></PrivateRoute>}></Route>
             <Route path={SEARCHSCREEN_PATH()} element={<SearchPage/>}></Route>
-            <Route path={TOONVIEWER_PATH()} element={<ToonViewer/>}></Route>
+            <Route path={TOONVIEWER_PATH()} element={<PrivateRoute><ToonViewer/></PrivateRoute>}></Route>
             <Route path={WEBTOONLIST_PATH()} element={<WebToonMemberList/>}></Route>
             <Route path={NOVELMEMBERLIST_PATH()} element={<NovelMemberList/>}></Route>
             <Route path={WEBTOONDETAIL_PATH()} element={<WebToonDetail/>}></Route>
