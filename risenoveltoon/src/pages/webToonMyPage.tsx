@@ -8,17 +8,30 @@ import {
 } from 'react-icons/fi';
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import { myPageApi } from "../api/JoinLogin/joinLoginApi";
+import type {UserFormData} from "../interface/types/auth.tsx";
+import { PurchaseModal } from '../common/modalCom.tsx';
 
-export const MyPage = () => {
+export const MyPage = () => { {}
     // 샘플 데이터 배열
     const navigate = useNavigate();
     const [categoryId, setActiveTab] = useState('all');
-    const [isBuyListOpen,setIsBuyListOpen] = useState(true);
+    const [modalMessage, setModalMessage] = useState('');
+    const [isInfoNotTokenModalOpen, setIsInfoNotTokenModalOpen] = useState(false);
 
+    const handleConfirmAndNavigate = () => {
+            setIsInfoNotTokenModalOpen(false); // 모달 닫고
+    };
+
+    const [isBuyListOpen,setIsBuyListOpen] = useState(true);
+    const [userData, setUserData] = useState<UserFormData | null>(null);
     const buyListUpDown = () => {
         setIsBuyListOpen(!isBuyListOpen);
     }
+
+    const storedUser = localStorage.getItem("userInfo")
+    const myPageInfo = storedUser ? JSON.parse(storedUser) : null;
 
     const buyList = [
         { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: ''},
@@ -34,6 +47,20 @@ export const MyPage = () => {
         { id: "novel", title: "📖 소설" }
     ];
 
+    // useEffect(() => {
+    //   async function fetchData() {
+    //     try {
+    //       const response = await myPageApi();
+    //       setUserData(response.data.data);
+    //     } catch (error : any) {
+    //         setModalMessage(error.response?.data?.detail);
+    //         setIsInfoNotTokenModalOpen(true)
+    //     }
+    //   }
+
+    //     fetchData(); // 비동기 함수 호출
+    // }, []);
+
     return (
         <div className="mypage-container">
             {/* 상단 헤더 */}
@@ -48,8 +75,8 @@ export const MyPage = () => {
                         <div className="profile-img">🐰</div>
                     </div>
                     <div className="profile-text">
-                        <h2 className="nickname">냅작맹두</h2>
-                        <span className="hashtag">#CP</span>
+                        <h2 className="nickname">{myPageInfo.nickname}</h2>
+                        <span className="hashtag">{myPageInfo.cpName}</span>
                     </div>
                 </div>
                 <button onClick={() => navigate("/webToonEditInfo")}  className="edit-btn">정보 수정</button>
@@ -59,7 +86,7 @@ export const MyPage = () => {
             <section className="balance-section">
                 <span className="balance-label">잔액</span>
                 <button onClick={() => navigate("/pointShop")} className="balance-value-btn">
-                    <span className="balance-amount">10,000원</span>
+                    <span className="balance-amount">{myPageInfo.currentBalance}</span>
                     <FiChevronRight size={20} className="arrow-icon" />
                 </button>
             </section>
@@ -97,6 +124,14 @@ export const MyPage = () => {
                 </>
             )}
                 <ToonMainBottom/>
+
+            <PurchaseModal 
+                    modalProps = {{
+                        isOpen: isInfoNotTokenModalOpen,
+                        description: modalMessage,
+                        cancelText : "닫기",
+                        onCancel : handleConfirmAndNavigate
+                        }}/>
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { PurchaseModal } from "../common/modalCom";
 
 export default function PrivateRoute({ children }: PrivateRouteProps) {
     const navigate = useNavigate();
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('userInfo');
     const [isRedirecting, setIsRedirecting] = useState(false);
     const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
 

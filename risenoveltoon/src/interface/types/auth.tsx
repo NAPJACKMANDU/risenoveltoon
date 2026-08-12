@@ -21,3 +21,9 @@ export interface LoginForm {
     userId? : string;
     password? : string;
 }
+
+export interface UserFormData {
+    nickname? : string;
+    currentBalance? : number;
+    cpName? : string;
+}

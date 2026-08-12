@@ -22,8 +22,8 @@ export const MainHome = () => {
         <div className="mobile-container">
             <div className="joinLogin">
                 <button onClick={() => navigate("/signUpScreen")} className="tab-item">회원가입</button>
-                {localStorage.getItem("jwtToken") ? 
-                <button onClick={() => { localStorage.removeItem("jwtToken"); navigate("/");}} className="tab-item">로그아웃</button>
+                {localStorage.getItem("userInfo") ? 
+                <button onClick={() => { localStorage.removeItem("userInfo"); navigate("/");}} className="tab-item">로그아웃</button>
                 : <button onClick={() => navigate("/loginScreen")} className="tab-item">로그인</button> }
                 
             </div>

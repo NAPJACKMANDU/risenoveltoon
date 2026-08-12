@@ -22,7 +22,7 @@ export default function Login() {
     }
 
     const [loginForm, setLoginForm] = useState<LoginForm>(() => {
-        const saved = localStorage.getItem('jwtToken');
+        const saved = localStorage.getItem('userInfo');
         return saved ? JSON.parse(saved) : {userId : "", password : ""};
     });
 
@@ -33,13 +33,9 @@ export default function Login() {
                const response =  await loginApi(loginForm);
                if(response) {
                     console.log(response)
-                    const jwtToken  = response.data.data;
+                    const userInfo  = response.data.data;
 
-                    localStorage.setItem("jwtToken", JSON.stringify({
-                              accessToken: jwtToken.accessToken,
-                              refreshToken: jwtToken.refreshToken
-                        }));
-
+                    localStorage.setItem("userInfo", JSON.stringify(userInfo));
                     navigate("/")
                } 
            }    

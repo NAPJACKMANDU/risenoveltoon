@@ -15,7 +15,7 @@ import {
     WEBTOONDETAIL_PATH
 } from "./index.ts";
 import MainHome from "../pages/main/webToonMain.tsx"
-import MyPage from "../pages/webToonMyScreen";
+import MyPage from "../pages/webToonMyPage.tsx";
 import BuyToonlist from "../pages/buyToonList";
 import EditInfo from "../pages/webToonEditInfo";
 import Login from "../pages/loginScreen";
