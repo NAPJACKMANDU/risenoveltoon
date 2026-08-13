@@ -9,7 +9,6 @@ import {
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import {useEffect, useState} from "react";
-import { myPageApi } from "../api/JoinLogin/joinLoginApi";
 import type {UserFormData} from "../interface/types/auth.tsx";
 import { PurchaseModal } from '../common/modalCom.tsx';
 
@@ -45,7 +44,7 @@ export const MyPage = () => { {}
         { id: "all", title: "📋 전체" },
         { id: "webtoon", title: "📔 웹툰" },
         { id: "novel", title: "📖 소설" }
-    ];
+    ];  
 
     // useEffect(() => {
     //   async function fetchData() {
@@ -86,7 +85,7 @@ export const MyPage = () => { {}
             <section className="balance-section">
                 <span className="balance-label">잔액</span>
                 <button onClick={() => navigate("/pointShop")} className="balance-value-btn">
-                    <span className="balance-amount">{myPageInfo.currentBalance}</span>
+                    <span className="balance-amount">{myPageInfo.currentBalance}원</span>
                     <FiChevronRight size={20} className="arrow-icon" />
                 </button>
             </section>

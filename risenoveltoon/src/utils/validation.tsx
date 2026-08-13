@@ -17,7 +17,7 @@ export const validateField = (
     form: SignUpForm
 ): string => {
     switch (name) {
-        case "id":
+        case "userId":
             if (!value.trim()) return "아이디를 입력해 주세요.";
             if (!/^[a-zA-Z0-9]{4,12}$/.test(value)) return "영문 및 숫자 4~12자로 입력해 주세요.";
             return "";

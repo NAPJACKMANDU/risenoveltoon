@@ -27,3 +27,9 @@ export interface UserFormData {
     currentBalance? : number;
     cpName? : string;
 }
+
+
+export interface MyPageData {
+    nickname? : string;
+    cpName? : string;
+}

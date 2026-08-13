@@ -4,11 +4,31 @@ import "../css/componentsCss.css"
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton} from "../hooks/functionComHook";
 import {useNavigate} from "react-router-dom";
+import type { MyPageData } from '../interface/types/auth';
+import { informationChangeApi } from '../api/JoinLogin/joinLoginApi';
 
 function EditInfo() {
     const navigate = useNavigate();
     const [nickname, setNickname] = useState('');
     const [cpName, setCpName] = useState('');
+
+    const storedUser = localStorage.getItem("userInfo")
+    const userInfo = storedUser ? JSON.parse(storedUser) : null;
+
+    
+    const informationChange = async (e: { preventDefault: () => void; }) => {
+        e.preventDefault;
+        
+        try {
+            const response = await informationChangeApi({ nickname, cpName });
+             if(response) {
+                    console.log(response)
+                }
+            }
+            catch(error : any) {
+        }
+    };
+
 
     // 닉네임 입력 변경 핸들러 (최대 8글자 제한)
     const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,10 +71,10 @@ function EditInfo() {
                 {/* 입력 폼 영역 */}
                 <form className="edit-form" onSubmit={(e) => e.preventDefault()}>
                     <div className="input-group">
-                        <label className="input-label">닉네임</label>
+                        <label className="input-label">닉네임 (최대 8글자)</label>
                         <input
                             type="text"
-                            placeholder="닉네임을 입력해 주세요 (최대 8글자)"
+                            placeholder={userInfo.nickname}
                             className="form-input"
                             value={nickname}
                             onChange={handleNicknameChange}
@@ -62,10 +82,10 @@ function EditInfo() {
                     </div>
 
                     <div className="input-group">
-                        <label className="input-label">#CP명</label>
+                        <label className="input-label">#CP명 (최대 2글자)</label>
                         <input
                             type="text"
-                            placeholder="주 CP명을 입력해 주세요 (최대 2글자)"
+                            placeholder={userInfo.cpName}
                             className="form-input"
                             value={cpName}
                             onChange={handleCpNameChange}
@@ -77,7 +97,7 @@ function EditInfo() {
             </main>
             <div className="info-bottom-btn-row">
                 <button onClick={() => navigate(-1)} className="btn-cancel">취소</button>
-                <button className="btn-continue">계속</button>
+                <button onClick={informationChange}type ="button" className="btn-continue">변경</button>
             </div>
             {/* 3. 하단 탭 바 (마이페이지 👤 활성화) */}
             <ToonMainBottom/>
