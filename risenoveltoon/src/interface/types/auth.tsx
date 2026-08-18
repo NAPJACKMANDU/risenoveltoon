@@ -22,14 +22,21 @@ export interface LoginForm {
     password? : string;
 }
 
+// local에 저장할 정보
 export interface UserFormData {
     nickname? : string;
     currentBalance? : number;
     cpName? : string;
 }
 
+// 닉네임, CP네임 변경 
+export interface InfoChangeData {
+    nickname? : string;
+    cpName? : string;
+}
 
 export interface MyPageData {
     nickname? : string;
+    currentBalance? : number;
     cpName? : string;
 }

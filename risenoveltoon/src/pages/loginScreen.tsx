@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {BackButton} from "../hooks/functionComHook";
 import { useState } from "react";
 import { PurchaseModal } from "../common/modalCom";
-import { loginApi } from "../api/JoinLogin/joinLoginApi";
+import { loginApi } from "../api/joinLoginApi";
 import type { LoginForm } from "../interface/types/auth";
 
 export default function Login() {
@@ -22,8 +22,11 @@ export default function Login() {
     }
 
     const [loginForm, setLoginForm] = useState<LoginForm>(() => {
-        const saved = localStorage.getItem('userInfo');
-        return saved ? JSON.parse(saved) : {userId : "", password : ""};
+        const savedUserId = localStorage.getItem('savedUserId');
+        return {
+            userId: savedUserId ?? "",
+            password: ""
+        };
     });
 
     const loginSubmit = async (e: { preventDefault: () => void; }) => { 
@@ -36,6 +39,7 @@ export default function Login() {
                     const userInfo  = response.data.data;
 
                     localStorage.setItem("userInfo", JSON.stringify(userInfo));
+                    localStorage.setItem('savedUserId', loginForm.userId ? loginForm.userId : '');
                     navigate("/")
                } 
            }    

@@ -2,9 +2,10 @@ import '../../css/webToonMainCss.css'
 import "../../css/componentsCss.css"
 import {ToonMainBottom} from '../../common/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {WebToonMainTabList} from "../main/webToonMainTabList.tsx"
 import {novelToonData} from "../../components/mainToon/webToonData.tsx"
+import { mainToonNovelApi } from '../../api/toonNovelApi.tsx';
 
 
 export const MainHome = () => {
@@ -14,9 +15,23 @@ export const MainHome = () => {
         { id: "novel", title: "📖 소설" },
         { id: "rank", title: "📋 랭킹" }
     ];
+    
 
     const navigate = useNavigate();
     const [categoryId, setActiveTab] = useState('all');
+
+    useEffect(() => {
+        async function toonNovelData() {
+            try {
+                const response = await mainToonNovelApi();
+                console.log(response)
+            } catch(error : any) {
+
+            }
+        }
+        toonNovelData();
+    }, []);
+
 
     return(
         <div className="mobile-container">

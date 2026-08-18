@@ -1,6 +1,6 @@
 import axios from "axios";
-import type {SignUpForm, CheckParam, LoginForm, MyPageData} from "../../interface/types/auth.tsx";
-import api from "./jwtTokenApi"; 
+import type {SignUpForm, CheckParam, LoginForm, InfoChangeData} from "../interface/types/auth.tsx";
+import api from "./jwtTokenApi.tsx"; 
 
 // 회원가입 
 export const joinApi = async(signupForm: SignUpForm) => {
@@ -22,10 +22,14 @@ export const loginApi = async(loginForm: LoginForm) => {
     return response;
 }
 
-// 마이페이지 진입 시
-export const informationChangeApi = async (myPageInfo : MyPageData) => {
-    const response = await api.get("/informationChangeApi", {
-            params: myPageInfo
-    }); 
+// 마이페이지 진입
+export const myPageApi = async () => {
+    const response = await api.post("/myPage")
+    return response;
+};
+
+// 정보 변경
+export const informationChangeApi = async (myPageInfo : InfoChangeData) => {
+    const response = await api.post("/informationChange", myPageInfo)
     return response;
 };

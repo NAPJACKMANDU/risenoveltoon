@@ -4,45 +4,86 @@ import "../css/componentsCss.css"
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton} from "../hooks/functionComHook";
 import {useNavigate} from "react-router-dom";
-import type { MyPageData } from '../interface/types/auth';
-import { informationChangeApi } from '../api/JoinLogin/joinLoginApi';
+import { informationChangeApi } from '../api/joinLoginApi';
+import { DuplicateCheck, PurchaseModal } from '../common/modalCom';
+import type { FormErrors } from '../interface/types/auth';
+import { cpNameValue } from '../utils/validation';
 
 function EditInfo() {
     const navigate = useNavigate();
     const [nickname, setNickname] = useState('');
     const [cpName, setCpName] = useState('');
+    const [errors, setErrors] = useState<FormErrors>({});
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [nextPageOpen, setNextPageOpen] = useState(false);
 
     const storedUser = localStorage.getItem("userInfo")
     const userInfo = storedUser ? JSON.parse(storedUser) : null;
-
+    const hasError = Boolean(errors.nickname) || Boolean(errors.cpName);
     
+    const handleConfirmAndNavigate = () => {
+            setIsModalOpen(false); // 모달 닫고
+            nextPageOpen ? navigate("/webToonMyPage") : '';
+    };
+
     const informationChange = async (e: { preventDefault: () => void; }) => {
         e.preventDefault;
         
+        if (Boolean(errors.nickname) || Boolean(errors.cpName)) {
+        return; // 에러 있으면 API 호출 자체를 막음
+        }
+
         try {
             const response = await informationChangeApi({ nickname, cpName });
              if(response) {
                     console.log(response)
+                    if(storedUser) {
+                        const parsed = JSON.parse(storedUser);
+                        const updated = {
+                            ...parsed,
+                            nickname: nickname === '' ? userInfo.nickname : nickname ,
+                            cpName: cpName === '' ? userInfo.cpName : cpName ,
+                        };
+                        localStorage.setItem("userInfo", JSON.stringify(updated));
+                    }
+                    setModalMessage(response.data?.message);
+                    setIsModalOpen(true);
+                    setNextPageOpen(true);
                 }
             }
             catch(error : any) {
+                setModalMessage(error.response?.data?.detail);
+                setIsModalOpen(true);
+                setNextPageOpen(false);
         }
     };
 
-
     // 닉네임 입력 변경 핸들러 (최대 8글자 제한)
     const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value.length <= 8) {
+         const value = e.target.value;
+            if (value.length <= 8) {
             setNickname(e.target.value);
+
         }
     };
 
     // CP명 입력 변경 핸들러 (최대 2글자 제한)
     const handleCpNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value.length <= 2) {
-            setCpName(e.target.value);
-        }
-    };
+        const value = e.target.value;
+           if (value.length <= 2) {
+               setCpName(value);
+
+               if (value === '') {
+                   // 빈 값이면 에러 안 띄움 (선택사항 — 원하면 여기도 에러 처리 가능)
+                   setErrors((prev) => ({ ...prev, cpName: undefined }));
+               } else if (!cpNameValue.includes(value)) {
+                   setErrors((prev) => ({ ...prev, cpName: '존재하지 않는 CP명입니다. 다시 입력해주세요.' }));
+               } else {
+                   setErrors((prev) => ({ ...prev, cpName: undefined }));
+               }
+           }
+        };
 
     return (
         <div className="mobile-container">
@@ -71,7 +112,10 @@ function EditInfo() {
                 {/* 입력 폼 영역 */}
                 <form className="edit-form" onSubmit={(e) => e.preventDefault()}>
                     <div className="input-group">
-                        <label className="input-label">닉네임 (최대 8글자)</label>
+                        <label className="input-label" style={{ marginRight: '3px' }}>닉네임 (최대 8글자)</label>
+                        <DuplicateCheck checkData ={nickname} title = "nickname"
+                            isDisabled = {!nickname || Boolean(errors.nickname)}
+                            errorDisabled = {Boolean(errors.nickname)}/>
                         <input
                             type="text"
                             placeholder={userInfo.nickname}
@@ -90,6 +134,7 @@ function EditInfo() {
                             value={cpName}
                             onChange={handleCpNameChange}
                         />
+                        {errors.cpName && <p className="error-text">{errors.cpName}</p>}
                     </div>
                 </form>
 
@@ -97,10 +142,24 @@ function EditInfo() {
             </main>
             <div className="info-bottom-btn-row">
                 <button onClick={() => navigate(-1)} className="btn-cancel">취소</button>
-                <button onClick={informationChange}type ="button" className="btn-continue">변경</button>
+                <button 
+                    onClick={informationChange} 
+                    type="button" 
+                    className="btn-continue"
+                    disabled={hasError}
+                >
+                    변경
+                </button>
             </div>
             {/* 3. 하단 탭 바 (마이페이지 👤 활성화) */}
             <ToonMainBottom/>
+                <PurchaseModal 
+                    modalProps={{
+                        isOpen: isModalOpen,
+                        description: modalMessage,
+                        cancelText: "닫기",
+                        onCancel: handleConfirmAndNavigate
+                    }}/>
         </div>
     );
 }

@@ -9,8 +9,9 @@ import {
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import {useEffect, useState} from "react";
-import type {UserFormData} from "../interface/types/auth.tsx";
+import type {MyPageData, UserFormData} from "../interface/types/auth.tsx";
 import { PurchaseModal } from '../common/modalCom.tsx';
+import { myPageApi } from '../api/joinLoginApi.tsx';
 
 export const MyPage = () => { {}
     // 샘플 데이터 배열
@@ -24,15 +25,12 @@ export const MyPage = () => { {}
     };
 
     const [isBuyListOpen,setIsBuyListOpen] = useState(true);
-    const [userData, setUserData] = useState<UserFormData | null>(null);
+    const [userData, setUserData] = useState<MyPageData | null>(null);
     const buyListUpDown = () => {
         setIsBuyListOpen(!isBuyListOpen);
     }
 
-    const storedUser = localStorage.getItem("userInfo")
-    const myPageInfo = storedUser ? JSON.parse(storedUser) : null;
-
-    const buyList = [
+    const buyList = [   
         { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: ''},
         { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon', img: ''},
         { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel', img: ''},
@@ -46,19 +44,33 @@ export const MyPage = () => { {}
         { id: "novel", title: "📖 소설" }
     ];  
 
-    // useEffect(() => {
-    //   async function fetchData() {
-    //     try {
-    //       const response = await myPageApi();
-    //       setUserData(response.data.data);
-    //     } catch (error : any) {
-    //         setModalMessage(error.response?.data?.detail);
-    //         setIsInfoNotTokenModalOpen(true)
-    //     }
-    //   }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await myPageApi();
+                setUserData(response.data.data);
+            } catch (error: any) {
+                setModalMessage(error.response?.data?.detail);
+                setIsInfoNotTokenModalOpen(true);
+            }
+        }
+        fetchData();
+    }, []);
 
-    //     fetchData(); // 비동기 함수 호출
-    // }, []);
+    if (userData === null) {
+        return (
+            <div className="mypage-container">
+                {/* 로딩 스켈레톤이나, 혹은 에러 모달만 보여주기 */}
+                <PurchaseModal 
+                    modalProps={{
+                        isOpen: isInfoNotTokenModalOpen,
+                        description: modalMessage,
+                        cancelText: "닫기",
+                        onCancel: handleConfirmAndNavigate
+                    }}/>
+            </div>
+        );
+    }
 
     return (
         <div className="mypage-container">
@@ -74,8 +86,8 @@ export const MyPage = () => { {}
                         <div className="profile-img">🐰</div>
                     </div>
                     <div className="profile-text">
-                        <h2 className="nickname">{myPageInfo.nickname}</h2>
-                        <span className="hashtag">{myPageInfo.cpName}</span>
+                        <h2 className="nickname">{userData?.nickname}</h2>
+                        <span className="hashtag">{userData?.cpName}</span>
                     </div>
                 </div>
                 <button onClick={() => navigate("/webToonEditInfo")}  className="edit-btn">정보 수정</button>
@@ -85,7 +97,7 @@ export const MyPage = () => { {}
             <section className="balance-section">
                 <span className="balance-label">잔액</span>
                 <button onClick={() => navigate("/pointShop")} className="balance-value-btn">
-                    <span className="balance-amount">{myPageInfo.currentBalance}원</span>
+                    <span className="balance-amount">{userData?.currentBalance}원</span>
                     <FiChevronRight size={20} className="arrow-icon" />
                 </button>
             </section>
@@ -123,14 +135,6 @@ export const MyPage = () => { {}
                 </>
             )}
                 <ToonMainBottom/>
-
-            <PurchaseModal 
-                    modalProps = {{
-                        isOpen: isInfoNotTokenModalOpen,
-                        description: modalMessage,
-                        cancelText : "닫기",
-                        onCancel : handleConfirmAndNavigate
-                        }}/>
         </div>
     );
 };

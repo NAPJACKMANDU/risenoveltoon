@@ -28,15 +28,24 @@ api.interceptors.response.use(
         try {
           // 백엔드의 재발급 API 호출
           const res = await axios.post("/api/reissue", { refreshToken });
-
           const newToken = res.data.data; // ApiResponse.data 안에 새 토큰
-          localStorage.setItem("userInfo", JSON.stringify(newToken));
+          const storedUser = JSON.parse(storedToken);
 
-          // 새 토큰으로 Authorization 헤더 갱신 후 재요청
+          const updated = {
+            ...storedUser,
+            accessToken: newToken.accessToken,
+            refreshToken: newToken.refreshToken,
+          };
+          localStorage.setItem("userInfo", JSON.stringify(updated));
+
+           // 새 토큰으로 Authorization 헤더 갱신 후 재요청
           originalRequest.headers.Authorization = `Bearer ${newToken.accessToken}`;
           return api(originalRequest);
+
         } catch (err) {
           // Refresh Token도 만료 → 로그인 페이지로 이동
+          localStorage.removeItem("userInfo");
+          window.dispatchEvent(new Event("세션이 종료되었습니다."));
           window.location.href = "/loginScreen";
         }
       }

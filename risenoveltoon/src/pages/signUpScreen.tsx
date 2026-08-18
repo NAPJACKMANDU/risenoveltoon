@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {type ChangeEvent, useState} from "react";
 import type {FormErrors, SignUpForm} from "../interface/types/auth.tsx";
 import {validateField, validateSignUpForm} from "../utils/validation.tsx";
-import {joinApi} from "../api/JoinLogin/joinLoginApi.tsx";
+import {joinApi} from "../api/joinLoginApi.tsx";
 import {PurchaseModal, DuplicateCheck} from "../common/modalCom.tsx";
 
 export default function SignUp() {

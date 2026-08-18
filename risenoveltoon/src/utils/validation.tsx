@@ -4,7 +4,7 @@ import type {SignUpForm, FormErrors} from "../interface/types/auth.tsx";
  * 개별 필드 유효성 검사 함수
  */
 
-const cpNameValue = ['숕숑', '숕석', '숕넨', '숕또', '숕톤', '숕른',
+export const cpNameValue = ['숕숑', '숕석', '숕넨', '숕또', '숕톤', '숕른',
                      '석숕', '석숑', '돌넨', '석또', '돌톤', '돌른',
                      '숑숕', '숑석', '숑넨', '숑또', '숑톤', '숑른',
                      '넨숕', '넨석', '넨숑', '넨또', '넨톤', '넨른',
