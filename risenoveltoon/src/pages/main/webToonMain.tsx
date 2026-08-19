@@ -2,36 +2,22 @@ import '../../css/webToonMainCss.css'
 import "../../css/componentsCss.css"
 import {ToonMainBottom} from '../../common/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {WebToonMainTabList} from "../main/webToonMainTabList.tsx"
-import {novelToonData} from "../../components/mainToon/webToonData.tsx"
-import { mainToonNovelApi } from '../../api/toonNovelApi.tsx';
-
+import { toonNovelDataApi } from '../../hooks/toonNovelDataHook.tsx';
 
 export const MainHome = () => {
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
-        { id: "webtoon", title: "📔 웹툰" },
-        { id: "novel", title: "📖 소설" },
-        { id: "rank", title: "📋 랭킹" }
+        { id: "WEBTOON", title: "📔 웹툰" },
+        { id: "NOVEL", title: "📖 소설" },
+        { id: "RANK", title: "📋 랭킹" }
     ];
     
-
     const navigate = useNavigate();
     const [categoryId, setActiveTab] = useState('all');
 
-    useEffect(() => {
-        async function toonNovelData() {
-            try {
-                const response = await mainToonNovelApi();
-                console.log(response)
-            } catch(error : any) {
-
-            }
-        }
-        toonNovelData();
-    }, []);
-
+    const toonNovelData = toonNovelDataApi();
 
     return(
         <div className="mobile-container">
@@ -63,8 +49,7 @@ export const MainHome = () => {
             </div>
 
             {/* 메인 스크롤 영역 시작 */}
-                <WebToonMainTabList data = {novelToonData}  type = {categoryId} />
-            {/* 메인 스크롤 영역 끝 */}
+                <WebToonMainTabList data = {toonNovelData}  type = {categoryId} />
 
             {/* 7. 하단 네비게이션 탭 바 */}
                 <ToonMainBottom/>

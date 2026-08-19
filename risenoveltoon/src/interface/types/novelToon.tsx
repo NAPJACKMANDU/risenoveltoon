@@ -1,13 +1,18 @@
 // 메인 웹툰 & 소설
 export interface novelToonMainData {
-    id: number | string;
-    title: string;
-    tag: string;
-    type : string;
-    img: string;
-    memberId : string;
+    contentId:number;
+    title:string;
+    description:string;
     author:string;
+    type:string;
+    toonUrl:string;
+    createdAt:string;
+    cpName:string;
+    rightMember:string;
+    views:number;
+    leftMember:string;
 }
+
 // Props : 넘겨주는 속성값
 export interface NovelToonMainProps {
     data: novelToonMainData[];

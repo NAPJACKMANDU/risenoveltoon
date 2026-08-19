@@ -6,6 +6,7 @@ import type { NovelToonMainProps, NovelToonType} from '../../interface/types/nov
 
 export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToonType) => {
     const navigate = useNavigate();
+    
     let changeMainDiv ;
 
     switch(type) {
@@ -23,7 +24,7 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
                     </div>
 
                     <div className="horizontal-scroll-view">
-                        <NovelToonMain data = {data} type = "webtoon"/>
+                        <NovelToonMain data = {data} type = "WEBTOON"/>
                     </div> 
                 </div>
 
@@ -34,27 +35,27 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
                         <span className="arrow-icon">❯</span>
                     </div>
                     <div className="horizontal-scroll-view">
-                        <NovelToonMain data = {data} type = "novel" />
+                        <NovelToonMain data = {data} type = "NOVEL" />
                     </div>
                 </div>
             </>
                 break;
-        case "webtoon" : 
+        case "WEBTOON" : 
             changeMainDiv =
             <div className="webtoon-grid">
-                <NovelToonMain data = {data} type = {type} division = "webtoon"/>
+                <NovelToonMain data = {data} type = {type} division = "WEBTOON"/>
             </div>
             break;
-        case "novel" : 
+        case "NOVEL" : 
             changeMainDiv =
             <div className="webtoon-grid">
-                <NovelToonMain data = {data} type = {type} division = "novel"/>
+                <NovelToonMain data = {data} type = {type} division = "NOVEL"/>
             </div>
             break;
-        case "rank" : 
+        case "RANK" : 
             changeMainDiv =
             <div className="webtoon-grid">
-                <NovelToonMain data = {data} type = {type} division = "rank"/>
+                <NovelToonMain data = {data} type = {type} division = "RANK"/>
             </div>
         break;
         }

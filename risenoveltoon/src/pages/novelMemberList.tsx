@@ -1,9 +1,9 @@
 import "../css/componentsCss.css"
 import "../css/webToonMemberList.css"
 import {useState} from "react";
-import {novelToonData} from "../components/mainToon/webToonData"
 import {SearchItem, ToonMainBottom, NovelToonListCom } from "../common/webToonMainCom"
 import {BackButton} from "../hooks/functionComHook";
+import { toonNovelDataApi } from "../hooks/toonNovelDataHook";
 
 export const NovelMemberList = () => {
         const memberTitle = [
@@ -16,6 +16,7 @@ export const NovelMemberList = () => {
     ];
 
     const [activeTab, setActiveTab] = useState('shtaro');
+    const toonNovelData = toonNovelDataApi();
 
     return (
         <>  
@@ -36,7 +37,7 @@ export const NovelMemberList = () => {
                         </div>
                 </header>
             {/* 3. 소설 리스트 (3열 그리드) */}
-                <NovelToonListCom data={novelToonData} type ="novel" memberId = {activeTab}/>
+                <NovelToonListCom data={toonNovelData} type ="NOVEL" memberId = {activeTab}/>
              {/*하단 네비게이션 탭 바 */}
             <ToonMainBottom/>
       </div>

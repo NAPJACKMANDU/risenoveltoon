@@ -50,9 +50,9 @@ export const MainBanner = ({ data }: NovelToonMainProps) => {
         className="mySwiper"
       >
         {randomList.map((item) => (
-          <SwiperSlide key={item.id}>
+          <SwiperSlide key={item.contentId}>
             <div className="main-banner">
-              <img src={item.img} alt={item.title} className="banner-img" />
+              <img src={item.toonUrl || undefined} alt={item.title} className="banner-img" />
               <div className="banner-title-badge">{item.title}</div>
             </div>
           </SwiperSlide>
@@ -64,22 +64,23 @@ export const MainBanner = ({ data }: NovelToonMainProps) => {
 
 // 웹툰과 소설을 보여주는 메인 화면단
 export const NovelToonMain = ({data, type, division} : NovelToonMainProps & NovelToonType & NovelToonDivision)=> {
+
     return(
         <>
         {data
             .filter((item) => item.type === type)
             .map((item) => (
-                <div key={item.id} className={division ? "webtoon-card" : "card-item"}>
+                <div key={item.contentId} className={division ? "webtoon-card" : "card-item"}>
                     <div className={division ? "thumb-box" : "card-image-wrapper"}>
                         <img 
-                            src={item.img} 
+                            src={item.toonUrl || undefined} 
                             alt={item.title} 
                             className="card-img"
                         />
                     </div>
                     <div className="info-box">
                         <div className='sub-info'>
-                            <span className="title" style={{ marginRight: '2px'}}>[{item.tag}]</span>
+                            <span className="title" style={{ marginRight: '2px'}}>[{item.cpName}]</span>
                             <span className="title">{item.title}</span>
                         </div>
                             <span className="author">{item.author}</span>
@@ -106,15 +107,15 @@ export const NovelToonListCom = ({data, type, memberId} : NovelToonMainProps & N
     return (
      <div className="webtoon-grid">
                { data 
-                       .filter((item) => item.memberId === memberId && item.type === type)
+                       .filter((item) => item.leftMember === memberId && item.type === type)
                        .map((item) => (
-               <div key={item.id} className="webtoon-card">
+               <div key={item.contentId} className="webtoon-card">
                    <div className="thumb-box">
-                       <img src={item.img} alt={item.title} />
+                       <img src={item.toonUrl || undefined} alt={item.title} />
                    </div>
                     <div className="info-box">
                         <div>
-                            <span className="title" style={{ marginRight: '2px'}}>[{item.tag}]</span>
+                            <span className="title" style={{ marginRight: '2px'}}>[{item.cpName}]</span>
                             <span className="title">{item.title}</span>
                         </div>
                             <span className="author">{item.author}</span>

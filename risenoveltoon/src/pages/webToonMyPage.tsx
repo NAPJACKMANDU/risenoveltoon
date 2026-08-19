@@ -13,7 +13,7 @@ import type {MyPageData, UserFormData} from "../interface/types/auth.tsx";
 import { PurchaseModal } from '../common/modalCom.tsx';
 import { myPageApi } from '../api/joinLoginApi.tsx';
 
-export const MyPage = () => { {}
+export const MyPage = () => {
     // 샘플 데이터 배열
     const navigate = useNavigate();
     const [categoryId, setActiveTab] = useState('all');
@@ -50,7 +50,7 @@ export const MyPage = () => { {}
                 const response = await myPageApi();
                 setUserData(response.data.data);
             } catch (error: any) {
-                setModalMessage(error.response?.data?.detail);
+                setModalMessage(error.response?.data?.detail ?? "정보를 불러오지 못 했습니다.");
                 setIsInfoNotTokenModalOpen(true);
             }
         }

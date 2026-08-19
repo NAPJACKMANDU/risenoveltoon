@@ -1,9 +1,11 @@
 import "../css/componentsCss.css"
 import "../css/webToonMemberList.css"
 import {useState} from "react";
-import {novelToonData} from "../components/mainToon/webToonData"
 import {SearchItem, ToonMainBottom, NovelToonListCom} from "../common/webToonMainCom"
 import {BackButton} from "../hooks/functionComHook";
+import {useToonNovelStore} from "../store/useToonNovelStore";
+import { toonNovelDataApi } from "../hooks/toonNovelDataHook";
+
 export const WebTooMembernList = () => {
         const memberTitle = [
         { id: "shtaro", title: "쇼타로" },
@@ -16,6 +18,7 @@ export const WebTooMembernList = () => {
     ];
 
     const [activeTab, setActiveTab] = useState('shtaro');
+    const toonNovelData = toonNovelDataApi();
 
     return (
         <>  
@@ -36,7 +39,7 @@ export const WebTooMembernList = () => {
                         </div>
                 </header>
             {/* 3. 웹툰 리스트 (3열 그리드) */}
-               <NovelToonListCom data = {novelToonData} type ="webtoon" memberId={activeTab}/>
+               <NovelToonListCom data = {toonNovelData} type ="WEBTOON" memberId={activeTab}/>
              {/*하단 네비게이션 탭 바 */}
             <ToonMainBottom/>
       </div>
