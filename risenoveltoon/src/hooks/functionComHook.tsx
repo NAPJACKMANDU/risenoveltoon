@@ -10,6 +10,18 @@ export const BackButton = ({backtype} : BackButtonType) => {
         navigate(-1); // 뒤로가기
     };
 
+    switch(backtype)  {
+        case "WEBTOON" :
+            backtype = "웹툰" ;
+            break;
+        case "NOVEL" :
+            backtype = "소설" ;
+            break;
+        default :    
+            backtype = "전체" ;
+            break;
+    }
+
     return (
         <div className="title-bar">
         <button className="back-btn" onClick={handleBack}>

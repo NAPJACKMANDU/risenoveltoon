@@ -37,7 +37,6 @@ function EditInfo() {
         try {
             const response = await informationChangeApi({ nickname, cpName });
              if(response) {
-                    console.log(response)
                     if(storedUser) {
                         const parsed = JSON.parse(storedUser);
                         const updated = {

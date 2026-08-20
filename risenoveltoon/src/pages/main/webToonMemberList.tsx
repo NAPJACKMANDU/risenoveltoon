@@ -1,11 +1,16 @@
-import "../css/componentsCss.css"
-import "../css/webToonMemberList.css"
+import "../../css/componentsCss.css"
+import "../../css/webToonMemberList.css"
 import {useState} from "react";
-import {SearchItem, ToonMainBottom, NovelToonListCom } from "../common/webToonMainCom"
-import {BackButton} from "../hooks/functionComHook";
-import { toonNovelDataApi } from "../hooks/toonNovelDataHook";
+import {SearchItem, ToonMainBottom, NovelToonListCom} from "../../common/webToonMainCom"
+import {BackButton} from "../../hooks/functionComHook";
+import { useToonNovelData } from "../../hooks/toonNovelDataHook";
+import { useSearchParams } from "react-router-dom"
 
-export const NovelMemberList = () => {
+export const WebTooMembernList = () => {
+
+    const [searchParams] = useSearchParams();
+    const category = searchParams.get("category"); 
+
         const memberTitle = [
         { id: "shtaro", title: "쇼타로" },
         { id: "seongchan", title: "정성찬" },
@@ -16,13 +21,13 @@ export const NovelMemberList = () => {
     ];
 
     const [activeTab, setActiveTab] = useState('shtaro');
-    const toonNovelData = toonNovelDataApi();
+    const toonNovelData = useToonNovelData();
 
     return (
         <>  
             <div className="mobile-container">
                 <header className="header-fixed">
-                        <BackButton backtype="소설"/> {/*뒤로가기*/}
+                        <BackButton backtype={category ? category : "all" }/> {/*뒤로가기*/}
                     {/* 필터 카테고리 탭 */}
                     <SearchItem/>
                         <div className="tab-container">
@@ -36,8 +41,8 @@ export const NovelMemberList = () => {
                         ))}
                         </div>
                 </header>
-            {/* 3. 소설 리스트 (3열 그리드) */}
-                <NovelToonListCom data={toonNovelData} type ="NOVEL" memberId = {activeTab}/>
+            {/* 3. 웹툰 리스트 (3열 그리드) */}
+               <NovelToonListCom data = {toonNovelData} type ={category ? category : "all"} memberId={activeTab}/>
              {/*하단 네비게이션 탭 바 */}
             <ToonMainBottom/>
       </div>
@@ -45,4 +50,4 @@ export const NovelMemberList = () => {
   );
 };
 
-export default NovelMemberList;
+export default WebTooMembernList;

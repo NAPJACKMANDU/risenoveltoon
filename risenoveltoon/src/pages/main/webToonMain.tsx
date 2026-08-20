@@ -4,20 +4,20 @@ import {ToonMainBottom} from '../../common/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {WebToonMainTabList} from "../main/webToonMainTabList.tsx"
-import { toonNovelDataApi } from '../../hooks/toonNovelDataHook.tsx';
+import { useToonNovelData } from '../../hooks/toonNovelDataHook.tsx';
 
 export const MainHome = () => {
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
         { id: "WEBTOON", title: "📔 웹툰" },
-        { id: "NOVEL", title: "📖 소설" },
+        { id: "NOVEL", title    : "📖 소설" },
         { id: "RANK", title: "📋 랭킹" }
     ];
     
     const navigate = useNavigate();
     const [categoryId, setActiveTab] = useState('all');
 
-    const toonNovelData = toonNovelDataApi();
+    const toonNovelData = useToonNovelData();
 
     return(
         <div className="mobile-container">

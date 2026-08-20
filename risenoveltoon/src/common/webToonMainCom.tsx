@@ -93,21 +93,34 @@ export const NovelToonMain = ({data, type, division} : NovelToonMainProps & Nove
 
 // 검색 기능 공통
 export const SearchItem = () => {
+  const [isOn, setIsOn] = useState(false);
 
-    return (
-            <div className="search-container">
-                <span className="search-icon">🔍</span>
-                <input type="text" placeholder="검색" className="search-input" />
-            </div>
-    )
+  return (
+    <div className="container">
+      {/* 검색 박스 */}
+      <div className="search-container">
+        <span className="search-icon">🔍</span>
+        <input type="text" placeholder="검색" className="search-input" />
+      </div>
+
+      {/* 토글 박스 */}
+      <div className="toggle-container" onClick={() => setIsOn(!isOn)}>
+        <div className={`toggle ${isOn ? "on" : "off"}`}>
+          <div className="toggle-circle"></div>
+        </div>
+        <span className="toggle-label">{isOn ? "왼" : "오"}</span>
+      </div>
+    </div>
+  );
 }
 
 // 멤버 탭에 따라 보여지는 소설과 웹툰 페이지
 export const NovelToonListCom = ({data, type, memberId} : NovelToonMainProps & NovelToonType & NovelToonMemId) => {
+    
     return (
      <div className="webtoon-grid">
-               { data 
-                       .filter((item) => item.leftMember === memberId && item.type === type)
+               {data 
+                       .filter((item) => item.leftMember === memberId && (type === "all" || item.type === type))
                        .map((item) => (
                <div key={item.contentId} className="webtoon-card">
                    <div className="thumb-box">

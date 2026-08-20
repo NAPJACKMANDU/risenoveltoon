@@ -18,7 +18,7 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
 
                 {/* 5. 웹툰 섹션 */}
                 <div className="section-container">
-                    <div onClick={() => navigate("/webToonMemberList")} className="section-header">
+                    <div onClick={() => navigate("/webToonMemberList?category=WEBTOON")} className="section-header">
                         <span className="section-title">웹툰</span>
                         <span className="arrow-icon">❯</span>
                     </div>
@@ -30,7 +30,7 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
 
                 {/* 6. 소설 섹션 */}
                 <div className="section-container">
-                    <div onClick={() => navigate("/novelMemberList")} className="section-header">
+                    <div onClick={() => navigate("/novelMemberList?category=NOVEL")} className="section-header">
                         <span className="section-title">소설</span>
                         <span className="arrow-icon">❯</span>
                     </div>

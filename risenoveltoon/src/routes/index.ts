@@ -9,5 +9,4 @@ export const PIONTSHOPSCREEN_PATH = () =>'/pointShop';
 export const SEARCHSCREEN_PATH = () => '/searchScreen';
 export const TOONVIEWER_PATH = () => '/toonViewer'
 export const WEBTOONLIST_PATH = () => '/webToonMemberList'
-export const NOVELMEMBERLIST_PATH = () => '/novelMemberList'
 export const WEBTOONDETAIL_PATH = () => '/webToonDetail'

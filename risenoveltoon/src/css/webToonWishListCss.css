@@ -12,3 +12,64 @@
     flex: 1;
     padding: 0;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 검색과 토글을 양 끝으로 배치 */
+  width: 100%; /* 원하는 전체 너비 */
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  flex: 1; /* 검색창이 넓게 차지 */
+}
+.search-input {
+  border: none;
+  outline: none;
+  margin-left: 8px;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 12px;
+}
+
+.toggle {
+    width: 40px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #ccc;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.toggle.on {
+  background-color: #4caf50;
+}
+
+.toggle-circle {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.toggle.on .toggle-circle {
+  transform: translateX(20px);
+}
+
+.toggle-label {
+  margin-left: 8px;
+  font-size: 14px;
+}

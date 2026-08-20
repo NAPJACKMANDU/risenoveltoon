@@ -2,7 +2,7 @@ import { useToonNovelStore } from '../store/useToonNovelStore.ts';
 import {useEffect, useRef} from "react";
 import { mainToonNovelApi } from '../api/toonNovelApi.tsx';
 
-export function toonNovelDataApi() {
+export function useToonNovelData() {
 
     const calledRef = useRef(false);
     const { toonNovelData, setToonNovelData } = useToonNovelStore();
@@ -14,7 +14,7 @@ export function toonNovelDataApi() {
             if (calledRef.current) return;
             calledRef.current = true;
             
-            async function toonNovelDataApi() {
+            async function useToonNovelData() {
                 try {
                     const response = await mainToonNovelApi();
                     console.log(response.data)
@@ -23,7 +23,7 @@ export function toonNovelDataApi() {
     
                 }
             }
-            toonNovelDataApi();
+            useToonNovelData();
         }, [toonNovelData.length, setToonNovelData]);
         
     return toonNovelData;

@@ -11,7 +11,6 @@ import {
     SEARCHSCREEN_PATH,
     TOONVIEWER_PATH,
     WEBTOONLIST_PATH,
-    NOVELMEMBERLIST_PATH,
     WEBTOONDETAIL_PATH
 } from "./index.ts";
 import MainHome from "../pages/main/webToonMain.tsx"
@@ -24,8 +23,7 @@ import Detail from "../pages/detail/detailScreen.tsx";
 import PointShop from "../pages/pointShop";
 import SearchPage from "../pages/searchScreen";
 import ToonViewer from "../pages/toonViewer";
-import WebToonMemberList from "../pages/webToonMemberList";
-import NovelMemberList from "../pages/novelMemberList";
+import WebToonMemberList from "../pages/main/webToonMemberList.tsx";
 import WebToonDetail from "../pages/detail/webToonDetail"
 import PrivateRoute from "./privateRoute.tsx";
 
@@ -44,7 +42,6 @@ export const RouterSetting = () => {
             <Route path={SEARCHSCREEN_PATH()} element={<SearchPage/>}></Route>
             <Route path={TOONVIEWER_PATH()} element={<PrivateRoute><ToonViewer/></PrivateRoute>}></Route>
             <Route path={WEBTOONLIST_PATH()} element={<WebToonMemberList/>}></Route>
-            <Route path={NOVELMEMBERLIST_PATH()} element={<NovelMemberList/>}></Route>
             <Route path={WEBTOONDETAIL_PATH()} element={<WebToonDetail/>}></Route>
         </Routes>
     )

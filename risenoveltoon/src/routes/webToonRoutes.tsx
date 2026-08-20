@@ -7,7 +7,7 @@ export const SomeComponent = () => {
     return (
         <div className="bottom-nav-bar">
             <button onClick={() => navigate("/")} className="nav-item">🏠</button>
-            <button onClick={() => navigate("/webToonMyPage")} className="nav-item">🎮</button>
+            <button onClick={() => navigate("/WebToonMemberList?category=all")} className="nav-item">🎮</button>
             <button onClick={() => navigate("/buyToonList")} className="nav-item">📖️</button>
             <button onClick={() => navigate("/webToonMyPage")} className="nav-item">👤</button>
         </div>
