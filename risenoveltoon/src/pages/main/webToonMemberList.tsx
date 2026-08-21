@@ -1,12 +1,19 @@
 import "../../css/componentsCss.css"
 import "../../css/webToonMemberList.css"
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {SearchItem, ToonMainBottom, NovelToonListCom} from "../../common/webToonMainCom"
 import {BackButton} from "../../hooks/functionComHook";
 import { useToonNovelData } from "../../hooks/toonNovelDataHook";
 import { useSearchParams } from "react-router-dom"
 
 export const WebTooMembernList = () => {
+
+
+    const [toggleValue, setToggleValue] = useState(false); // false: 왼, true: 른
+
+    const handleToggle = (value: boolean) => {
+        setToggleValue(value);
+    }
 
     const [searchParams] = useSearchParams();
     const category = searchParams.get("category"); 
@@ -23,13 +30,14 @@ export const WebTooMembernList = () => {
     const [activeTab, setActiveTab] = useState('shtaro');
     const toonNovelData = useToonNovelData();
 
+
     return (
         <>  
             <div className="mobile-container">
                 <header className="header-fixed">
                         <BackButton backtype={category ? category : "all" }/> {/*뒤로가기*/}
                     {/* 필터 카테고리 탭 */}
-                    <SearchItem/>
+                      <SearchItem onToggle={handleToggle} />
                         <div className="tab-container">
                         {memberTitle.map((mem) => (
                             <button
@@ -42,7 +50,7 @@ export const WebTooMembernList = () => {
                         </div>
                 </header>
             {/* 3. 웹툰 리스트 (3열 그리드) */}
-               <NovelToonListCom data = {toonNovelData} type ={category ? category : "all"} memberId={activeTab}/>
+               <NovelToonListCom data = {toonNovelData} type ={category ? category : "all"} memberId={activeTab} value={toggleValue} />
              {/*하단 네비게이션 탭 바 */}
             <ToonMainBottom/>
       </div>

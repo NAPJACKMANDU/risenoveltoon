@@ -1,6 +1,6 @@
 import {SomeComponent} from '../routes/webToonRoutes.tsx'
 import "../css/webToonMyPageCss.css"
-import type  {NovelToonMainProps, NovelToonType, NovelToonMemId, NovelToonDivision} from "../interface/types/novelToon.tsx";
+import type  {NovelToonMainProps, NovelToonType, NovelToonMemId, NovelToonDivision, leftRightvalue} from "../interface/types/novelToon.tsx";
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -92,8 +92,14 @@ export const NovelToonMain = ({data, type, division} : NovelToonMainProps & Nove
 };
 
 // 검색 기능 공통
-export const SearchItem = () => {
+export const SearchItem = ({ onToggle }: { onToggle: (value: boolean) => void }) => {
   const [isOn, setIsOn] = useState(false);
+
+    const handleToggle = () => {
+      const newValue = !isOn;
+      setIsOn(newValue);
+      onToggle(newValue);
+    };
 
   return (
     <div className="container">
@@ -104,23 +110,23 @@ export const SearchItem = () => {
       </div>
 
       {/* 토글 박스 */}
-      <div className="toggle-container" onClick={() => setIsOn(!isOn)}>
+      <div className="toggle-container" onClick={handleToggle}>
         <div className={`toggle ${isOn ? "on" : "off"}`}>
           <div className="toggle-circle"></div>
         </div>
-        <span className="toggle-label">{isOn ? "왼" : "오"}</span>
+        <span className="toggle-label">{isOn ? "른" : "왼"}</span>
       </div>
     </div>
   );
 }
 
 // 멤버 탭에 따라 보여지는 소설과 웹툰 페이지
-export const NovelToonListCom = ({data, type, memberId} : NovelToonMainProps & NovelToonType & NovelToonMemId) => {
+export const NovelToonListCom = ({data, type, memberId, value} : NovelToonMainProps & NovelToonType & NovelToonMemId & leftRightvalue) => {
     
     return (
      <div className="webtoon-grid">
                {data 
-                       .filter((item) => item.leftMember === memberId && (type === "all" || item.type === type))
+                       .filter((item) => (value ? item.rightMember === memberId : item.leftMember === memberId) && (type === "all" || item.type === type))
                        .map((item) => (
                <div key={item.contentId} className="webtoon-card">
                    <div className="thumb-box">

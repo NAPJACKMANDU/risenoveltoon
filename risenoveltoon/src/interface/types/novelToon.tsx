@@ -64,3 +64,6 @@ export interface SignUpParams {
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
+export interface leftRightvalue {
+    value : boolean;
+}
