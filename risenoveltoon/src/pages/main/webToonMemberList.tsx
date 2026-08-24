@@ -1,7 +1,7 @@
 import "../../css/componentsCss.css"
 import "../../css/webToonMemberList.css"
 import {useMemo, useState} from "react";
-import {SearchItem, ToonMainBottom, NovelToonListCom} from "../../common/webToonMainCom"
+import {SearchItem, ToonMainBottom, NovelToonList} from "../../common/webToonMainCom"
 import {BackButton} from "../../hooks/functionComHook";
 import { useToonNovelData } from "../../hooks/toonNovelDataHook";
 import { useSearchParams } from "react-router-dom"
@@ -50,7 +50,7 @@ export const WebTooMembernList = () => {
                         </div>
                 </header>
             {/* 3. 웹툰 리스트 (3열 그리드) */}
-               <NovelToonListCom data = {toonNovelData} type ={category ? category : "all"} memberId={activeTab} value={toggleValue} />
+               <NovelToonList data = {toonNovelData} type ={category ? category : "all"} memberId={activeTab} value={toggleValue} mode="MEMBER"/>
              {/*하단 네비게이션 탭 바 */}
             <ToonMainBottom/>
       </div>

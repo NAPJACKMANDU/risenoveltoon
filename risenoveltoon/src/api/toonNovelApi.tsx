@@ -5,3 +5,8 @@ export const mainToonNovelApi = async() => {
         const response= await axios.get("/api/mainToonNovel");
     return response;
 }
+
+export const viewCountApi = async(itemId : any) => {
+        const response = await axios.get("/api/veiwCount", itemId);
+    return response;
+}

@@ -13,22 +13,14 @@ export interface novelToonMainData {
     leftMember:string;
 }
 
-// Props : 넘겨주는 속성값
+// Props 타입
 export interface NovelToonMainProps {
     data: novelToonMainData[];
-}
-
-// 메인 화면 - 웹툰인지 소설인지 확인 후 보여 주기
-export interface NovelToonType {
-    type : string;
-}
-
-export interface NovelToonMemId {
-    memberId : string;
-}
-
-export interface NovelToonDivision {
-    division? : string;
+    mode?: 'MAIN' | 'MEMBER' | 'RANK'; // 3가지 탭/화면을 구분하는 속성 (기본값: 'main')
+    type?: string;
+    memberId?: string;
+    division?: string | boolean;       // boolean 또는 string 대응
+    value?: boolean;
 }
 
 // 목록 웹툰
@@ -62,8 +54,4 @@ export interface SignUpParams {
     error: Record<string, string>;
     setError: React.Dispatch<React.SetStateAction<Record<string, string>>>;
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
-}
-
-export interface leftRightvalue {
-    value : boolean;
 }

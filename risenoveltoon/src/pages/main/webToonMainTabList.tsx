@@ -1,10 +1,10 @@
 import '../../css/webToonMainCss.css'
 import "../../css/componentsCss.css"
-import {NovelToonMain, MainBanner} from '../../common/webToonMainCom.tsx'
+import {MainBanner, NovelToonList} from '../../common/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
-import type { NovelToonMainProps, NovelToonType} from '../../interface/types/novelToon.tsx';
+import type { NovelToonMainProps} from '../../interface/types/novelToon.tsx';
 
-export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToonType) => {
+export const WebToonMainTabList = ({data, type} : NovelToonMainProps ) => {
     const navigate = useNavigate();
     
     let changeMainDiv ;
@@ -24,7 +24,7 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
                     </div>
 
                     <div className="horizontal-scroll-view">
-                        <NovelToonMain data = {data} type = "WEBTOON"/>
+                        <NovelToonList data = {data} type = "WEBTOON"/>
                     </div> 
                 </div>
 
@@ -35,7 +35,7 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
                         <span className="arrow-icon">❯</span>
                     </div>
                     <div className="horizontal-scroll-view">
-                        <NovelToonMain data = {data} type = "NOVEL" />
+                        <NovelToonList data = {data} type = "NOVEL" />
                     </div>
                 </div>
             </>
@@ -43,19 +43,19 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps & NovelToon
         case "WEBTOON" : 
             changeMainDiv =
             <div className="webtoon-grid">
-                <NovelToonMain data = {data} type = {type} division = "WEBTOON"/>
+                <NovelToonList data = {data} type = {type} division = "WEBTOON"/>
             </div>
             break;
         case "NOVEL" : 
             changeMainDiv =
             <div className="webtoon-grid">
-                <NovelToonMain data = {data} type = {type} division = "NOVEL"/>
+                <NovelToonList data = {data} type = {type} division = "NOVEL"/>
             </div>
             break;
         case "RANK" : 
             changeMainDiv =
             <div className="webtoon-grid">
-                <NovelToonMain data = {data} type = {type} division = "RANK"/>
+                <NovelToonList data = {data} division = "RANK" mode = "RANK"/>
             </div>
         break;
         }

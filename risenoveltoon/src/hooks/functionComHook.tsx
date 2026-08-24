@@ -39,7 +39,7 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
 
     const filteredData =
         categoryId === "all"
-            ? listData
+            ? listData 
             : listData.filter((item) => item.type === categoryId);
 
     return (
