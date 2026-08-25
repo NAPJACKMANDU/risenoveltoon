@@ -78,6 +78,12 @@
   margin-top: 2px;
 }
 
+.info-box .view {
+  font-size: 11px;
+  color: #8e8e93;
+  margin-top: -8px;
+}
+
 .nav-btn {
   background: none;
   border: none;

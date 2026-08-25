@@ -20,7 +20,7 @@ interface ToonViewerProps {
   onNextClick?: () => void;
 }
 
-export const WebToonDetail: React.FC<ToonViewerProps> = ({
+export const webToonDetail: React.FC<ToonViewerProps> = ({
   title = "말강즈",
   likeCount = 1234,
   commentCount = 1234,
@@ -80,4 +80,4 @@ export const WebToonDetail: React.FC<ToonViewerProps> = ({
   );
 };
 
-export default WebToonDetail;
+export default webToonDetail;

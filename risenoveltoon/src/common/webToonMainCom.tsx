@@ -94,7 +94,7 @@ import "swiper/css/pagination";
     );
   }
 
-// 💥 3개의 컴포넌트를 하나로 통합한 공통 컴포넌트
+// 3개의 컴포넌트를 하나로 통합한 공통 컴포넌트
 export const NovelToonList = ({ data, mode = 'MAIN', type, memberId, division, value}: NovelToonMainProps) => {
   
   const navigate = useNavigate();
@@ -103,8 +103,8 @@ export const NovelToonList = ({ data, mode = 'MAIN', type, memberId, division, v
   const viewCountHandle = async (item: novelToonMainData) => {
     try {
       const response = await viewCountApi(item.contentId); // 또는 item 전달
-      console.log(response);
-      navigate('/detailScreen', { state: response });
+      console.log(response.data);
+      navigate('/detailScreen', { state: response.data });
     } catch (err) {
       console.error(err);
     }
@@ -133,11 +133,13 @@ export const NovelToonList = ({ data, mode = 'MAIN', type, memberId, division, v
                               <span className="title">{item.title}</span>
                           </div>
                               <span className="author">{item.author}</span>
+                              <span className="view">{item.views.toLocaleString()}</span>
                       </div>
                   </div>
               ))}
         </>
         break;
+
       case "MEMBER" : // 멤버 탭에 따라 보여지는 소설과 웹툰 페이지
         changeMainDiv =
         <>
@@ -155,12 +157,14 @@ export const NovelToonList = ({ data, mode = 'MAIN', type, memberId, division, v
                               <span className="title">{item.title}</span>
                           </div>
                               <span className="author">{item.author}</span>
+                              <span className="view">{item.views.toLocaleString()}</span>
                       </div>
                   </div>
              ))}
          </div>
         </>
         break;
+
       case "RANK" : // 소설과 웹툰 랭킹 탭
         changeMainDiv =
         <>
@@ -179,14 +183,15 @@ export const NovelToonList = ({ data, mode = 'MAIN', type, memberId, division, v
                      className="card-img"
                    />
                    {/* 순위 표시 */}
-                   <div className="rank-badge">{index + 1}</div>
+                   <div className="rank-badge" >{index + 1}</div>
                  </div>
                  <div className="info-box">
                    <div className='sub-info'>
-                     <span className="title" style={{ marginRight: '2px'}}>[{item.cpName}]</span>
-                     <span className="title">{item.title}</span>
+                      <span className="title" style={{ marginRight: '2px' }}>[{item.cpName}]</span>
+                      <span className="title">{item.title}</span>
                    </div>
-                   <span className="author">{item.author}</span>
+                      <span className="author">{item.author}</span>
+                      <span className="view">{item.views.toLocaleString()}</span>
                  </div>
               </div>
             ))}
