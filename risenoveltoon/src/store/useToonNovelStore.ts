@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { novelToonMainData } from '../interface/types/novelToon'; // 실제 경로로 수정
+import type { novelToonMainData } from '../interface/types/novelToon';
 
 interface ToonNovelStore {
     toonNovelData: novelToonMainData[];

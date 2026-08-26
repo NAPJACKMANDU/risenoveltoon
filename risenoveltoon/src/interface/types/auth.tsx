@@ -36,7 +36,13 @@ export interface InfoChangeData {
 }
 
 export interface MyPageData {
+    userId? : string;
     nickname? : string;
-    currentBalance? : number;
     cpName? : string;
+    currentBalance? : number;
+    contentId? : number;
+    title? : string;
+    author? : string;
+    type? : string;
+    toonUrl? : string;
 }

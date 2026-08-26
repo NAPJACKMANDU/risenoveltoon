@@ -3,27 +3,32 @@ import "../css/componentsCss.css"
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import {useState} from "react";
-
+import { PurchaseModal } from "../common/modalCom";
+import { useMyPageData } from "../hooks/toonNovelDataHook";
+import { useWindowScrollTop } from "../common/common";
 
 export const BuyToonlist = () => {
 
-    // 임시 데이터 (나중에 서버에서 받아올 데이터 구조)
-    const buyList = [
-        { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: ''},
-        { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon', img: ''},
-        { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel', img: ''},
-        { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon' , img: ''},
-        { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel', img: ''},
-    ];
+    // 스크롤 상단으로 이동
+    const { categoryId, handleScrollTopAndTab } = useWindowScrollTop();
+    const { userData, modalProps } = useMyPageData();
+    
+    // 로딩 중이거나 데이터가 없을 때의 처리
+     if (!userData) {
+         return (
+             <div className="mypage-container">
+                 {/* 스켈레톤 UI 또는 에러 모달 */}
+                 <PurchaseModal modalProps={modalProps} />
+             </div>
+         );
+     }
 
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
-        { id: "webtoon", title: "📔 웹툰" },
-        { id: "novel", title: "📖 소설" },
+        { id: "WEBTOON", title: "📔 웹툰" },
+        { id: "NOVEL", title: "📖 소설" },
         { id: "wish", title: "❤️ 찜" }
     ];
-
-    const [categoryId, setActiveTab] = useState('all');
 
     return (
         <div className="mobile-container">
@@ -43,14 +48,14 @@ export const BuyToonlist = () => {
                         <button
                             key={cat.id}
                             className={`tab-btn ${categoryId === cat.id ? 'active' : ''}`}
-                            onClick={() => setActiveTab(cat.id)}>
+                            onClick={() => handleScrollTopAndTab(cat.id)}>
                             {cat.title}
                         </button>
                     ))}
                 </div>
             </header>
             {/* 4. 스크롤되는 리스트 영역 */}
-            <CategoryButton listData = {buyList} categoryId={categoryId}/>
+            <CategoryButton listData = {userData} categoryId={categoryId}/>
             <ToonMainBottom/>
         </div>
     );

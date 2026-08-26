@@ -1,13 +1,12 @@
 import "../../css/componentsCss.css"
 import "../../css/webToonMemberList.css"
-import {useMemo, useState} from "react";
+import {useState} from "react";
 import {SearchItem, ToonMainBottom, NovelToonList} from "../../common/webToonMainCom"
 import {BackButton} from "../../hooks/functionComHook";
 import { useToonNovelData } from "../../hooks/toonNovelDataHook";
 import { useSearchParams } from "react-router-dom"
 
 export const WebTooMembernList = () => {
-
 
     const [toggleValue, setToggleValue] = useState(false); // false: 왼, true: 른
 
@@ -30,6 +29,19 @@ export const WebTooMembernList = () => {
     const [activeTab, setActiveTab] = useState('shtaro');
     const toonNovelData = useToonNovelData();
 
+    const handleScrollTopAndTab = (id: string) => {
+      setActiveTab(id);
+
+      // 1. window 스크롤 초기화
+      window.scrollTo({ top: 0 });
+
+      // 2. 문서 내 모든 overflow 스크롤 요소들의 스크롤 초기화
+      document.querySelectorAll('div').forEach((el) => {
+        if (el.scrollTop > 0) {
+          el.scrollTop = 0;
+        }
+      });
+    };
 
     return (
         <>  
@@ -43,7 +55,7 @@ export const WebTooMembernList = () => {
                             <button
                                 key={mem.id}
                                 className={`tab-btn ${activeTab === mem.id ? 'active' : ''}`}
-                                onClick={() => setActiveTab(mem.id)}>
+                                onClick={() => handleScrollTopAndTab(mem.id)}>
                                 {mem.title}
                             </button>
                         ))}

@@ -8,70 +8,39 @@ import {
 } from 'react-icons/fi';
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
-import {useEffect, useState} from "react";
-import type {MyPageData, UserFormData} from "../interface/types/auth.tsx";
+import {useState} from "react";
 import { PurchaseModal } from '../common/modalCom.tsx';
-import { myPageApi } from '../api/joinLoginApi.tsx';
+import { useMyPageData } from '../hooks/toonNovelDataHook.tsx';
+import { useWindowScrollTop } from '../common/common.tsx';
 
 export const MyPage = () => {
     // 샘플 데이터 배열
     const navigate = useNavigate();
-    const [categoryId, setActiveTab] = useState('all');
-    const [modalMessage, setModalMessage] = useState('');
-    const [isInfoNotTokenModalOpen, setIsInfoNotTokenModalOpen] = useState(false);
-
-    const handleConfirmAndNavigate = () => {
-            setIsInfoNotTokenModalOpen(false); // 모달 닫고
-    };
-
     const [isBuyListOpen,setIsBuyListOpen] = useState(true);
-    const [userData, setUserData] = useState<MyPageData | null>(null);
+
     const buyListUpDown = () => {
         setIsBuyListOpen(!isBuyListOpen);
     }
 
-    const buyList = [   
-        { id: 1, title: '말강즈', tag: '#CP', type: 'webtoon', img: ''},
-        { id: 2, title: '빈앤톤89듀오', tag: '#CP', type: 'webtoon', img: ''},
-        { id: 3, title: '제목입니당ㅇ!', tag: '#CP', type: 'novel', img: ''},
-        { id: 4, title: '송은석이찬영투톤즈ㅋㅋ', tag: '#CP', type: 'webtoon', img: ''},
-        { id: 5, title: '또리토리또토리', tag: '#CP', type: 'novel', img: ''},
-    ];
-
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
-        { id: "webtoon", title: "📔 웹툰" },
-        { id: "novel", title: "📖 소설" }
+        { id: "WEBTOON", title: "📔 웹툰" },
+        { id: "NOVEL", title: "📖 소설" }
     ];  
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await myPageApi();
-                setUserData(response.data.data);
-            } catch (error: any) {
-                setModalMessage(error.response?.data?.detail ?? "정보를 불러오지 못 했습니다.");
-                setIsInfoNotTokenModalOpen(true);
-            }
-        }
-        fetchData();
-    }, []);
+    // 스크롤 상단으로 이동
+    const { categoryId, handleScrollTopAndTab } = useWindowScrollTop();
+    const { userData, modalProps } = useMyPageData();
 
-    if (userData === null) {
+   // 로딩 중이거나 데이터가 없을 때의 처리
+    if (!userData) {
         return (
             <div className="mypage-container">
-                {/* 로딩 스켈레톤이나, 혹은 에러 모달만 보여주기 */}
-                <PurchaseModal 
-                    modalProps={{
-                        isOpen: isInfoNotTokenModalOpen,
-                        description: modalMessage,
-                        cancelText: "닫기",
-                        onCancel: handleConfirmAndNavigate
-                    }}/>
+                {/* 스켈레톤 UI 또는 에러 모달 */}
+                <PurchaseModal modalProps={modalProps} />
             </div>
         );
     }
-
     return (
         <div className="mypage-container">
             {/* 상단 헤더 */}
@@ -86,8 +55,8 @@ export const MyPage = () => {
                         <div className="profile-img">🐰</div>
                     </div>
                     <div className="profile-text">
-                        <h2 className="nickname">{userData?.nickname}</h2>
-                        <span className="hashtag">{userData?.cpName}</span>
+                        <h2 className="nickname">{userData?.[0]?.nickname}</h2>
+                        <span className="hashtag">{userData?.[0]?.cpName}</span>
                     </div>
                 </div>
                 <button onClick={() => navigate("/webToonEditInfo")}  className="edit-btn">정보 수정</button>
@@ -97,7 +66,7 @@ export const MyPage = () => {
             <section className="balance-section">
                 <span className="balance-label">잔액</span>
                 <button onClick={() => navigate("/pointShop")} className="balance-value-btn">
-                    <span className="balance-amount">{userData?.currentBalance}원</span>
+                    <span className="balance-amount">{userData?.[0]?.currentBalance}원</span>
                     <FiChevronRight size={20} className="arrow-icon" />
                 </button>
             </section>
@@ -123,7 +92,7 @@ export const MyPage = () => {
                             <button
                                 key={cat.id}
                                 className={`tab-btn ${categoryId === cat.id ? 'active' : ''}`}
-                                onClick={() => setActiveTab(cat.id)}>
+                                onClick={() => handleScrollTopAndTab(cat.id)}>
                                 {cat.title}
                             </button>
                         ))}
@@ -131,7 +100,7 @@ export const MyPage = () => {
                     <FiChevronRight onClick={() => navigate("/buyToonList")}  size={20} className="arrow-icon" />
                 </div>
             {/* 리스트 목록 */}
-            <CategoryButton listData = {buyList} categoryId={categoryId} />
+            <CategoryButton listData = {userData} categoryId={categoryId} />
                 </>
             )}
                 <ToonMainBottom/>

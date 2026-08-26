@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
 import type {NovelToonListProps, CategoryProps, BackButtonType} from "../interface/types/novelToon.tsx";
+import { useState } from "react";
 
 // 뒤로가기 공통
 export const BackButton = ({backtype} : BackButtonType) => {
@@ -46,11 +47,11 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
         <div className="scroll-content">
             <main className="list-content">
                 {filteredData.map((item) => (
-                    <div onClick={() => navigate("/detailScreen", {state: item})} key={item.id} className="list-item">
+                    <div onClick={() => navigate("/detailScreen", {state: item})} key={item.contentId} className="list-item">
                         <img alt={item.title} className="item-img" />
                         <div className="item-info">
                             <h2 className="item-title">{item.title}</h2>
-                            <p className="item-tag">{item.tag}</p>
+                            <p className="item-tag">{item.cpName}</p>
                         </div>
                         <button className="detail-btn">〉</button>
                     </div>

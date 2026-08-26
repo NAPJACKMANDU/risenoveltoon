@@ -25,15 +25,16 @@ export interface NovelToonMainProps {
 
 // 목록 웹툰
 export interface novelToonListData {
-    id: number | string;
-    title: string;
-    tag: string;
-    type : string;
-    img: string;
+    contentId?: number;
+    title?: string;
+    type? : string;
+    toonUrl?: string;
+    author? : string;
+    cpName? : string;
 }
 
 export interface NovelToonListProps {
-    listData: novelToonListData[];
+    listData: novelToonListData[] ;
 }
 
 // 구매 목록 Id - 전체 웹툰 소설 찜 등

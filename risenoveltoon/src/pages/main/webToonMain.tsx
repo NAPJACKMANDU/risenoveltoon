@@ -2,9 +2,9 @@ import '../../css/webToonMainCss.css'
 import "../../css/componentsCss.css"
 import {ToonMainBottom} from '../../common/webToonMainCom.tsx'
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
 import {WebToonMainTabList} from "../main/webToonMainTabList.tsx"
 import { useToonNovelData } from '../../hooks/toonNovelDataHook.tsx';
+import { useWindowScrollTop } from '../../common/common.tsx';
 
 export const MainHome = () => {
     const categoryTitle = [
@@ -15,7 +15,7 @@ export const MainHome = () => {
     ];
     
     const navigate = useNavigate();
-    const [categoryId, setActiveTab] = useState('all');
+    const {categoryId, handleScrollTopAndTab} = useWindowScrollTop();
 
     const toonNovelData = useToonNovelData();
 
@@ -23,7 +23,7 @@ export const MainHome = () => {
         <div className="mobile-container">
             <div className="joinLogin">
                 <button onClick={() => navigate("/signUpScreen")} className="tab-item">회원가입</button>
-                {localStorage.getItem("userInfo") ? 
+                    {localStorage.getItem("userInfo") ? 
                 <button onClick={() => { localStorage.removeItem("userInfo"); navigate("/");}} className="tab-item">로그아웃</button>
                 : <button onClick={() => navigate("/loginScreen")} className="tab-item">로그인</button> }
                 
@@ -42,7 +42,7 @@ export const MainHome = () => {
                     <button
                         key={cat.id}
                         className={`tab-btn ${categoryId === cat.id ? 'active' : ''}`}
-                        onClick={() => setActiveTab(cat.id)}>
+                        onClick={() => handleScrollTopAndTab(cat.id)}>
                         {cat.title}
                     </button>
                 ))}
