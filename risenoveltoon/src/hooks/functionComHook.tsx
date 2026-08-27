@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
-import type {NovelToonListProps, CategoryProps, BackButtonType} from "../interface/types/novelToon.tsx";
-import { useState } from "react";
+import type {NovelToonListProps, CategoryProps, BackButtonType, novelToonListData} from "../interface/types/novelToon.tsx";
+import { viewCountApi } from "../api/toonNovelApi.tsx";
 
 // 뒤로가기 공통
 export const BackButton = ({backtype} : BackButtonType) => {
@@ -18,13 +18,13 @@ export const BackButton = ({backtype} : BackButtonType) => {
         case "NOVEL" :
             backtype = "소설" ;
             break;
-        default :    
+        case "all" :   
             backtype = "전체" ;
             break;
     }
 
     return (
-        <div className="title-bar">
+        <div className={backtype ? "title-bar" : "title-bar-Detail" }>
         <button className="back-btn" onClick={handleBack}>
             〈
         </button>
@@ -34,9 +34,21 @@ export const BackButton = ({backtype} : BackButtonType) => {
     );
 };
 
-// 전체, 웹툰, 소설, 랭킹 등 버튼 클릭 시 필터링 공통
+// 전체, 웹툰, 소설, 찜 등 버튼 클릭 시 필터링 공통
 export const CategoryButton = ({listData, categoryId} : NovelToonListProps & CategoryProps) => {
+ 
     const navigate = useNavigate();
+
+    // 공통 API 클릭 이벤트 핸들러
+    const viewCountHandle = async (item: novelToonListData) => {
+        try {
+          const response = await viewCountApi(item.contentId); // 또는 item 전달
+          console.log(response.data);
+          navigate('/detailScreen', { state: response.data });
+        } catch (err) {
+          console.error(err);
+        }
+    };
 
     const filteredData =
         categoryId === "all"
@@ -47,11 +59,11 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
         <div className="scroll-content">
             <main className="list-content">
                 {filteredData.map((item) => (
-                    <div onClick={() => navigate("/detailScreen", {state: item})} key={item.contentId} className="list-item">
+                    <div onClick={() => viewCountHandle(item)} key={item.contentId} className="list-item">
                         <img alt={item.title} className="item-img" />
                         <div className="item-info">
-                            <h2 className="item-title">{item.title}</h2>
-                            <p className="item-tag">{item.cpName}</p>
+                            <h2 className="item-title">[{item.cpName}] {item.title}</h2>
+                            <p className="item-tag">{item.author}</p>
                         </div>
                         <button className="detail-btn">〉</button>
                     </div>

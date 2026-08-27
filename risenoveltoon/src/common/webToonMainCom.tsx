@@ -199,8 +199,8 @@ export const NovelToonList = ({ data, mode = 'MAIN', type, memberId, division, v
         break;
   }
   return (
-    <>
+      <>
           {changeMainDiv}
-          </>
+      </>
   )
 }

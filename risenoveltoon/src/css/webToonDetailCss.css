@@ -1,8 +1,8 @@
-.title-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 52px;
+.title-bar-Detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
 }
 
 .viewer-title {

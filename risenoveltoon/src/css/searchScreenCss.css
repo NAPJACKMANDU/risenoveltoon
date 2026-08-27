@@ -73,7 +73,7 @@
 .grid-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     padding: 8px;
@@ -97,4 +97,46 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+/* 자동으로 따로 움직이는 영역 스타일 */
+.auto-scroll-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.scroll-row {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+}
+
+/* 윗줄: 왼쪽 이동 */
+.track-left {
+  animation: scrollLeft 25s linear infinite;
+}
+
+/* 아랫줄: 오른쪽 이동 */
+.track-right {
+  animation: scrollRight 25s linear infinite;
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }

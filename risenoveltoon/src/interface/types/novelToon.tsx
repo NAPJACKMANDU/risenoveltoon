@@ -42,6 +42,10 @@ export interface CategoryProps {
     categoryId : string;
 }
 
+export interface searchTerm {
+    searchItem : string;
+}
+
 // 뒤로가기 버튼 공통 사용으로 인한
 export interface BackButtonType {
     backtype : string;

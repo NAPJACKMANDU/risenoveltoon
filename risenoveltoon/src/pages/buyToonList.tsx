@@ -2,17 +2,19 @@ import "../css/webToonWishListCss.css"
 import "../css/componentsCss.css"
 import {ToonMainBottom} from "../common/webToonMainCom";
 import {BackButton, CategoryButton} from "../hooks/functionComHook";
-import {useState} from "react";
 import { PurchaseModal } from "../common/modalCom";
 import { useMyPageData } from "../hooks/toonNovelDataHook";
-import { useWindowScrollTop } from "../common/common";
+import { useSearchHandle, useWindowScrollTop } from "../common/common";
+import { useState } from "react";
 
 export const BuyToonlist = () => {
 
     // 스크롤 상단으로 이동
     const { categoryId, handleScrollTopAndTab } = useWindowScrollTop();
     const { userData, modalProps } = useMyPageData();
-    
+
+    const { searchTerm, filteredData, handleSearchChange } = useSearchHandle(userData);
+
     // 로딩 중이거나 데이터가 없을 때의 처리
      if (!userData) {
          return (
@@ -23,12 +25,24 @@ export const BuyToonlist = () => {
          );
      }
 
+    //     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setSearchTerm(e.target.value);
+    // };
+
+    //   const filteredData = userData.filter((item) =>
+    //     item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //     item.cpName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //     item.author?.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
+
+
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
         { id: "WEBTOON", title: "📔 웹툰" },
         { id: "NOVEL", title: "📖 소설" },
         { id: "wish", title: "❤️ 찜" }
     ];
+
 
     return (
         <div className="mobile-container">
@@ -39,7 +53,7 @@ export const BuyToonlist = () => {
                 {/* 2. 검색창 */}
                 <div className="search-container">
                     <span className="search-icon">🔍</span>
-                    <input type="text" placeholder="검색" className="search-input" />
+                    <input type="text" value={searchTerm} onChange={handleSearchChange} placeholder="검색" className="search-input" />
                 </div>
 
                 {/* 3. 필터 카테고리 탭 */}
@@ -55,7 +69,7 @@ export const BuyToonlist = () => {
                 </div>
             </header>
             {/* 4. 스크롤되는 리스트 영역 */}
-            <CategoryButton listData = {userData} categoryId={categoryId}/>
+            <CategoryButton listData = {filteredData} categoryId={categoryId}/>
             <ToonMainBottom/>
         </div>
     );

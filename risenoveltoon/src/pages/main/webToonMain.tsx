@@ -10,7 +10,7 @@ export const MainHome = () => {
     const categoryTitle = [
         { id: "all", title: "📋 전체" },
         { id: "WEBTOON", title: "📔 웹툰" },
-        { id: "NOVEL", title    : "📖 소설" },
+        { id: "NOVEL", title: "📖 소설" },
         { id: "RANK", title: "📋 랭킹" }
     ];
     

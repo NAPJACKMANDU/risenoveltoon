@@ -30,7 +30,7 @@ export const WebToonMainTabList = ({data, type} : NovelToonMainProps ) => {
 
                 {/* 6. 소설 섹션 */}
                 <div className="section-container">
-                    <div onClick={() => navigate("/novelMemberList?category=NOVEL")} className="section-header">
+                    <div onClick={() => navigate("/webToonMemberList?category=NOVEL")} className="section-header">
                         <span className="section-title">소설</span>
                         <span className="arrow-icon">❯</span>
                     </div>
