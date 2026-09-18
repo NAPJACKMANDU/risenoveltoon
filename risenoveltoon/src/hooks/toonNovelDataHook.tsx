@@ -20,7 +20,6 @@ export function useToonNovelData() {
             async function useToonNovelData() {
                 try {
                     const response = await mainToonNovelApi();
-                    console.log(response.data)
                     setToonNovelData(response.data); 
                 } catch(error : any) {
     

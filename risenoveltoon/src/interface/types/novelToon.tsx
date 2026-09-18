@@ -60,3 +60,21 @@ export interface SignUpParams {
     setError: React.Dispatch<React.SetStateAction<Record<string, string>>>;
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
+
+export interface SetLoveState {
+    loveOn : boolean
+    contentId : number
+}
+
+export interface Episode {
+    episodeId : number;
+    contentId : number;
+    episodeNumber : number;
+    subTitle : string;
+    contentPath? : string;
+    price : number;
+}
+
+export interface EpisodeList {
+    episodeListDate : Episode[];
+}
