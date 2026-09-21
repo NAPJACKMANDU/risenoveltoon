@@ -40,7 +40,7 @@ export const BuyToonlist = () => {
         { id: "all", title: "📋 전체" },
         { id: "WEBTOON", title: "📔 웹툰" },
         { id: "NOVEL", title: "📖 소설" },
-        { id: "wish", title: "❤️ 찜" }
+        { id: "WISH", title: "❤️ 찜" }
     ];
 
 

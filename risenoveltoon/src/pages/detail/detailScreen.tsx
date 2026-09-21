@@ -5,25 +5,26 @@ import { ToonMainBottom } from "../../common/webToonMainCom";
 import { BackButton } from "../../hooks/functionComHook";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { novelToonEpisodesDataApi, setLoveStateApi } from "../../api/toonNovelApi";
-import type { EpisodeList } from "../../interface/types/novelToon";
+import { fetchEpisodesApi, novelToonEpisodesDataApi, setLoveStateApi } from "../../api/toonNovelApi";
+import type { Episode } from "../../interface/types/novelToon";
 
 export default function Detail() {
     const navigate = useNavigate();
     const tags = ['쇼타로', '이찬영', '말강즈', '맏막즈', '타로앤톤'];
 
     const [isLoveOn, setIsLoveOn] = useState<boolean>(false);
-    const [novelToonEpisodesData, setUseNovelToonEpisodesData] = useState<EpisodeList | null>(null);
+    const [novelToonEpisodesData, setUseNovelToonEpisodesData] = useState<Episode[] | null>(null);
 
     const { state } = useLocation();
-    console.log("state : " ,state)
+    const firstItem = novelToonEpisodesData?.[0];
+
     useEffect(() =>{
 
             async function useNovelToonEpisodesData() {
                 try {
                     const response = await novelToonEpisodesDataApi(state.contentId);
-                    console.log(response.data);
-                    setUseNovelToonEpisodesData(response.data)
+                    setUseNovelToonEpisodesData(response.data.data)
+                    console.log(response.data.data);
                 } catch(error : any) {
 
                 }
@@ -44,6 +45,8 @@ export default function Detail() {
     const updateLoveState = async (newLoveState : boolean) => {
         try {
             await setLoveStateApi({loveOn : newLoveState, contentId: state?.contentId });
+            const updatedData = await fetchEpisodesApi(state?.contentId);
+            setUseNovelToonEpisodesData(updatedData.data);
         } catch (error: any) {
             console.error(error);
         }
@@ -104,13 +107,13 @@ export default function Detail() {
 
                 {/* 에피소드 리스트 */}
                 <div className="episode-list">
-                    {novelToonEpisodesData?.episodeListDate.map((item, idx) => (
+                    {novelToonEpisodesData?.map((item, idx) => (
                         <div onClick={() => navigate("/webToonDetail")} className="episode-item" key={idx}>
                             <div className="episode-left">
                                 <div className="episode-thumb" />
                                 <div className="episode-meta">
                                     <span className="ep-title">{item.subTitle}</span>
-                                    
+                                    <span className="ep-date">{item.created_at}</span>
                                 </div>
                             </div>
                             <button 
@@ -120,14 +123,14 @@ export default function Detail() {
                                     color: item.price === 0 ? '#ffaf54' : '#333' 
                                 }}
                             >
-                                {item.price === 0 ? '무료' : item.price}
+                                {item.price === 0 ? '무료' : item.price + ' 원'}
                             </button>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* 🧭 하단 탭 바 고정 <span className="ep-date">{item.}</span> */}
+            {/* 🧭 하단 탭 바 고정 */}
             <ToonMainBottom />
         </div>
     );

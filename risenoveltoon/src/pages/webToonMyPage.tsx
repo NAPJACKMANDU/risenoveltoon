@@ -18,6 +18,10 @@ export const MyPage = () => {
     const navigate = useNavigate();
     const [isBuyListOpen,setIsBuyListOpen] = useState(true);
 
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") ?? "{}");
+    const cpName = userInfo?.cpName ?? "";
+
+
     const buyListUpDown = () => {
         setIsBuyListOpen(!isBuyListOpen);
     }
@@ -56,7 +60,7 @@ export const MyPage = () => {
                     </div>
                     <div className="profile-text">
                         <h2 className="nickname">{userData?.[0]?.nickname}</h2>
-                        <span className="hashtag">{userData?.[0]?.cpName}</span>
+                        <span className="hashtag">{cpName}</span>
                     </div>
                 </div>
                 <button onClick={() => navigate("/webToonEditInfo")}  className="edit-btn">정보 수정</button>

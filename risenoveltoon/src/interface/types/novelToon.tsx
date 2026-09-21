@@ -73,8 +73,6 @@ export interface Episode {
     subTitle : string;
     contentPath? : string;
     price : number;
-}
-
-export interface EpisodeList {
-    episodeListDate : Episode[];
+    created_at : string;
+    favorite : boolean;
 }

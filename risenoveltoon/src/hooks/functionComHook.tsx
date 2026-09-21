@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
 import type {NovelToonListProps, CategoryProps, BackButtonType, novelToonListData} from "../interface/types/novelToon.tsx";
-import { viewCountApi } from "../api/toonNovelApi.tsx";
+import { loveContentsApi, viewCountApi } from "../api/toonNovelApi.tsx";
 
 // 뒤로가기 공통
 export const BackButton = ({backtype} : BackButtonType) => {
@@ -50,15 +50,34 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
         }
     };
 
-    const filteredData =
-        categoryId === "all"
-            ? listData 
-            : listData.filter((item) => item.type === categoryId);
+
+    const loveContentHandle = async() => {
+        try {
+            const response = await loveContentsApi() ;
+            console.log(response.data);
+        } catch(err : any) {
+
+        }
+    }
+
+    let filteredData;
+
+    switch (categoryId) {
+        case "all" :
+            filteredData = listData ;
+            break;
+        case "WISH" :
+            filteredData = loveContentHandle();
+            break;
+        default :
+            filteredData = listData.filter((item) => item.type === categoryId);
+            break;
+    }
 
     return (
         <div className="scroll-content">
             <main className="list-content">
-                {filteredData.map((item) => (
+                {filteredData?.map((item) => (
                     <div onClick={() => viewCountHandle(item)} key={item.contentId} className="list-item">
                         <img alt={item.title} className="item-img" />
                         <div className="item-info">
@@ -72,3 +91,5 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
         </div>
     );
 }
+
+
