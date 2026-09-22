@@ -5,13 +5,14 @@ import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import { PurchaseModal } from "../common/modalCom";
 import { useMyPageData } from "../hooks/toonNovelDataHook";
 import { useSearchHandle, useWindowScrollTop } from "../common/common";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loveContentsApi } from "../api/toonNovelApi";
 
 export const BuyToonlist = () => {
 
     // 스크롤 상단으로 이동
     const { categoryId, handleScrollTopAndTab } = useWindowScrollTop();
-    const { userData, modalProps } = useMyPageData();
+    const { userData, setUserData, modalProps } = useMyPageData();
 
     const { searchTerm, filteredData, handleSearchChange } = useSearchHandle(userData);
 
@@ -43,6 +44,15 @@ export const BuyToonlist = () => {
         { id: "WISH", title: "❤️ 찜" }
     ];
 
+    useEffect(() => {
+        if (categoryId === "WISH") {
+            const fetchWish = async () => {
+              const response = await loveContentsApi();
+              setUserData(response.data.data);
+            };
+        fetchWish();
+      }
+    }, [categoryId]);
 
     return (
         <div className="mobile-container">

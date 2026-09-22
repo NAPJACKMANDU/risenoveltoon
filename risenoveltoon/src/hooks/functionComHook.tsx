@@ -36,7 +36,7 @@ export const BackButton = ({backtype} : BackButtonType) => {
 
 // 전체, 웹툰, 소설, 찜 등 버튼 클릭 시 필터링 공통
 export const CategoryButton = ({listData, categoryId} : NovelToonListProps & CategoryProps) => {
- 
+    
     const navigate = useNavigate();
 
     // 공통 API 클릭 이벤트 핸들러
@@ -50,24 +50,14 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
         }
     };
 
-
-    const loveContentHandle = async() => {
-        try {
-            const response = await loveContentsApi() ;
-            console.log(response.data);
-        } catch(err : any) {
-
-        }
-    }
-
     let filteredData;
-
+    console.log(listData)
     switch (categoryId) {
         case "all" :
             filteredData = listData ;
             break;
         case "WISH" :
-            filteredData = loveContentHandle();
+            filteredData = listData;
             break;
         default :
             filteredData = listData.filter((item) => item.type === categoryId);

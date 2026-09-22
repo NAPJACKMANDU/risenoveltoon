@@ -60,6 +60,7 @@ export function useMyPageData() {
 
     return {
         userData,
+        setUserData,
         modalProps: {
             isOpen: isInfoNotTokenModalOpen,
             description: modalMessage,
