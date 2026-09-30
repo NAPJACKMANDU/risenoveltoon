@@ -5,7 +5,7 @@ import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import { PurchaseModal } from "../common/modalCom";
 import { useMyPageData } from "../hooks/toonNovelDataHook";
 import { useSearchHandle, useWindowScrollTop } from "../common/common";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { loveContentsApi } from "../api/toonNovelApi";
 
 export const BuyToonlist = () => {

@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
 import type {NovelToonListProps, CategoryProps, BackButtonType, novelToonListData} from "../interface/types/novelToon.tsx";
-import { loveContentsApi, viewCountApi } from "../api/toonNovelApi.tsx";
+import { viewCountApi } from "../api/toonNovelApi.tsx";
 
 // 뒤로가기 공통
 export const BackButton = ({backtype} : BackButtonType) => {
