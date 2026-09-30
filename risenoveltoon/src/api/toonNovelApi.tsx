@@ -38,5 +38,3 @@ export const novelToonEpisodesDataApi = async(contentId : any) => {
         });
     return response;
 }
-
-
