@@ -16,6 +16,16 @@ export const BuyToonlist = () => {
 
     const { searchTerm, filteredData, handleSearchChange } = useSearchHandle(userData);
 
+    useEffect(() => {
+        if (categoryId === "WISH") {
+            const fetchWish = async () => {
+              const response = await loveContentsApi();
+              setUserData(response.data.data);
+            };
+        fetchWish();
+      }
+    }, [categoryId]);
+
     // 로딩 중이거나 데이터가 없을 때의 처리
      if (!userData) {
          return (
@@ -43,16 +53,6 @@ export const BuyToonlist = () => {
         { id: "NOVEL", title: "📖 소설" },
         { id: "WISH", title: "❤️ 찜" }
     ];
-
-    useEffect(() => {
-        if (categoryId === "WISH") {
-            const fetchWish = async () => {
-              const response = await loveContentsApi();
-              setUserData(response.data.data);
-            };
-        fetchWish();
-      }
-    }, [categoryId]);
 
     return (
         <div className="mobile-container">
