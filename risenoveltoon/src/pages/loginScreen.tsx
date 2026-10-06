@@ -35,7 +35,6 @@ export default function Login() {
        try {
                const response =  await loginApi(loginForm);
                if(response) {
-                    console.log(response)
                     const userInfo  = response.data.data;
 
                     localStorage.setItem("userInfo", JSON.stringify(userInfo));

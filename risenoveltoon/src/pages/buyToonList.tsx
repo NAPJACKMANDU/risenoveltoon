@@ -5,25 +5,38 @@ import {BackButton, CategoryButton} from "../hooks/functionComHook";
 import { PurchaseModal } from "../common/modalCom";
 import { useMyPageData } from "../hooks/toonNovelDataHook";
 import { useSearchHandle, useWindowScrollTop } from "../common/common";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loveContentsApi } from "../api/toonNovelApi";
+import type { MyPageData } from "../interface/types/auth";
 
 export const BuyToonlist = () => {
 
     // 스크롤 상단으로 이동
     const { categoryId, handleScrollTopAndTab } = useWindowScrollTop();
-    const { userData, setUserData, modalProps } = useMyPageData();
+    const { userData, modalProps } = useMyPageData();
+    const [ wishData, setWishData ] = useState<MyPageData[] | null>(null);
 
-    const { searchTerm, filteredData, handleSearchChange } = useSearchHandle(userData);
+    const listData = categoryId === "WISH" ? wishData : userData;
+    const { searchTerm, filteredData, handleSearchChange } = useSearchHandle(listData);
 
     useEffect(() => {
         if (categoryId === "WISH") {
+            let isActive = true;
             const fetchWish = async () => {
-              const response = await loveContentsApi();
-              setUserData(response.data.data);
+                try {
+                    const response = await loveContentsApi();
+                    if (isActive) {
+                        setWishData(response.data.data);
+                    }
+                } catch (error) {
+                    console.error("찜 목록을 불러오지 못했습니다.", error);
+                }
             };
-        fetchWish();
-      }
+            fetchWish();
+            return () => {
+                isActive = false;
+            };
+        }
     }, [categoryId]);
 
     // 로딩 중이거나 데이터가 없을 때의 처리

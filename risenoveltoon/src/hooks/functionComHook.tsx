@@ -43,7 +43,6 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
     const viewCountHandle = async (item: novelToonListData) => {
         try {
           const response = await viewCountApi(item.contentId); // 또는 item 전달
-          console.log(response.data);
           navigate('/detailScreen', { state: response.data });
         } catch (err) {
           console.error(err);
@@ -51,7 +50,6 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
     };
 
     let filteredData;
-    console.log(listData)
     switch (categoryId) {
         case "all" :
             filteredData = listData ;
