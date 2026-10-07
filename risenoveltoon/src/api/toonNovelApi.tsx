@@ -20,9 +20,11 @@ export const setLoveStateApi = async(setLovesItem : SetLoveState) => {
 }
 
 // 하트 실시간 조회 서비스
-export const fetchEpisodesApi = async(contentId : any) => {
-        const response =   await api.post("/fetchEpisodes", contentId);
-    return response;
+export const fetchEpisodesApi = async(contentId: number) => {
+  const response = await api.post("/fetchEpisodes", null, {
+    params: { contentId }
+  });
+  return response;
 }
 
 // 찜 누른 콘텐츠 값 가져오기
