@@ -10,3 +10,4 @@ export const SEARCHSCREEN_PATH = () => '/searchScreen';
 export const TOONVIEWER_PATH = () => '/toonViewer'
 export const WEBTOONLIST_PATH = () => '/webToonMemberList'
 export const WEBTOONDETAIL_PATH = () => '/webToonDetail'
+export const COMMANTSECTION_PATH = () => 'CommentSection'

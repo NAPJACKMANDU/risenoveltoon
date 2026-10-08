@@ -11,7 +11,8 @@ import {
     SEARCHSCREEN_PATH,
     TOONVIEWER_PATH,
     WEBTOONLIST_PATH,
-    WEBTOONDETAIL_PATH
+    WEBTOONDETAIL_PATH,
+    COMMANTSECTION_PATH
 } from "./index.ts";
 import MainHome from "../pages/main/webToonMain.tsx"
 import MyPage from "../pages/webToonMyPage.tsx";
@@ -26,6 +27,7 @@ import ToonViewer from "../pages/toonViewer";
 import WebToonMemberList from "../pages/main/webToonMemberList.tsx";
 import WebToonDetail from "../pages/detail/webToonDetail"
 import PrivateRoute from "./privateRoute.tsx";
+import CommentSection from "../pages/commentPage.tsx";
 
 export const RouterSetting = () => {
     return (
@@ -43,6 +45,7 @@ export const RouterSetting = () => {
             <Route path={TOONVIEWER_PATH()} element={<PrivateRoute><ToonViewer/></PrivateRoute>}></Route>
             <Route path={WEBTOONLIST_PATH()} element={<WebToonMemberList/>}></Route>
             <Route path={WEBTOONDETAIL_PATH()} element={<WebToonDetail/>}></Route>
+            <Route path={COMMANTSECTION_PATH()} element={<CommentSection/>}></Route>
         </Routes>
     )
 }

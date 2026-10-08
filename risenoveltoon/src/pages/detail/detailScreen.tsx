@@ -16,22 +16,42 @@ export default function Detail() {
     const [novelToonEpisodesData, setUseNovelToonEpisodesData] = useState<Episode[] | null>(null);
 
     const { state } = useLocation();
-    const firstItem = novelToonEpisodesData?.[0];
 
-    useEffect(() =>{
+    useEffect(() => {
+        const contentId = state?.contentId;
+        if (contentId == null) return;
 
-            async function useNovelToonEpisodesData() {
-                try {
-                    const response = await novelToonEpisodesDataApi(state.contentId);
-                    setUseNovelToonEpisodesData(response.data.data)
-                    console.log(response.data.data);
-                } catch(error : any) {
+        let isCurrent = true;
 
+        async function loadEpisodes() {
+            try {
+                const response = await novelToonEpisodesDataApi(contentId);
+                if (isCurrent) {
+                    setUseNovelToonEpisodesData(response.data.data);
                 }
+            } catch (error: any) {
+                console.error("에피소드 목록을 불러오지 못했습니다.", error);
             }
-            useNovelToonEpisodesData();
-        }, [state.contentId]
-    )
+        }
+
+        async function loadLoveState() {
+            try {
+                const response = await fetchEpisodesApi(contentId);
+                if (isCurrent) {
+                    setIsLoveOn(response.data);
+                }
+            } catch (error: any) {
+                console.error("찜 상태를 불러오지 못했습니다.", error);
+            }
+        }
+
+        void loadEpisodes();
+        void loadLoveState();
+
+        return () => {
+            isCurrent = false;
+        };
+    }, [state?.contentId]);
 
 
     // 찜 관련 로직
@@ -46,7 +66,7 @@ export default function Detail() {
         try {
             await setLoveStateApi({loveOn : newLoveState, contentId: state?.contentId });
             const updatedData = await fetchEpisodesApi(state?.contentId);
-            setUseNovelToonEpisodesData(updatedData.data);
+            setIsLoveOn(updatedData.data);
         } catch (error: any) {
             console.error(error);
         }
@@ -78,7 +98,7 @@ export default function Detail() {
                     <div className="stats-and-like-row">
                         <div className="stats-group">
                             <span className="stat-item">👁️{state?.views.toLocaleString() || "0"}</span>
-                            <span className="stat-item">💬1,583 &gt;</span>
+                            <span className="stat-item" onClick={() => navigate("/CommentSection")}  >💬1,583 &gt;</span>
                         </div>
                         <button 
                             onClick={handleClick} 
