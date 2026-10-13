@@ -295,7 +295,6 @@ export const CommentSection = ({
             type="submit"
             className="btn-submit-comment"
             disabled={!inputText.trim()}
-            onClick={() => commentHandler()}
           >
             등록
           </button>
