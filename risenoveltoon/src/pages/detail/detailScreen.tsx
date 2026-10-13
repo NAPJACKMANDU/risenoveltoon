@@ -7,10 +7,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchEpisodesApi, novelToonEpisodesDataApi, setLoveStateApi } from "../../api/toonNovelApi";
 import type { Episode } from "../../interface/types/novelToon";
+import CommentSection from "../commentPage";
 
 export default function Detail() {
     const navigate = useNavigate();
     const tags = ['쇼타로', '이찬영', '말강즈', '맏막즈', '타로앤톤'];
+    const [isCommentOpen, setIsCommentOpen] = useState<boolean>(false);
 
     const [isLoveOn, setIsLoveOn] = useState<boolean>(false);
     const [novelToonEpisodesData, setUseNovelToonEpisodesData] = useState<Episode[] | null>(null);
@@ -26,6 +28,7 @@ export default function Detail() {
         async function loadEpisodes() {
             try {
                 const response = await novelToonEpisodesDataApi(contentId);
+                
                 if (isCurrent) {
                     setUseNovelToonEpisodesData(response.data.data);
                 }
@@ -98,7 +101,7 @@ export default function Detail() {
                     <div className="stats-and-like-row">
                         <div className="stats-group">
                             <span className="stat-item">👁️{state?.views.toLocaleString() || "0"}</span>
-                            <span className="stat-item" onClick={() => navigate("/CommentSection")}  >💬1,583 &gt;</span>
+                            <span className="stat-item" onClick={() => setIsCommentOpen(true)}  >💬1,583 &gt;</span>
                         </div>
                         <button 
                             onClick={handleClick} 
@@ -149,9 +152,14 @@ export default function Detail() {
                     ))}
                 </div>
             </div>
-
             {/* 🧭 하단 탭 바 고정 */}
             <ToonMainBottom />
+        
+            <CommentSection
+                isOpen = {isCommentOpen}
+                onClose={() => setIsCommentOpen(false)}
+                postId={state?.contentId}/>
         </div>
+        
     );
 }

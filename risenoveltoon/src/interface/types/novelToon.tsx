@@ -48,7 +48,7 @@ export interface searchTerm {
 
 // 뒤로가기 버튼 공통 사용으로 인한
 export interface BackButtonType {
-    backtype : string;
+    backtype? : string;
 }
 
 export interface SignUpParams {
@@ -86,4 +86,5 @@ export interface CommentItem {
   likeCount: number;
   isLiked?: boolean;
   isMyComment?: boolean; // 자기가 쓴 댓글이면 삭제 버튼 표시용
+  replies?: CommentItem[];
 }

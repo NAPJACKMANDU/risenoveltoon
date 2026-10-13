@@ -40,3 +40,12 @@ export const novelToonEpisodesDataApi = async(contentId : any) => {
         });
     return response;
 }
+
+// 댓글 
+export const commentHandlerApi = async(replyInputText : any, postId : number) => {
+    console.log("replyInputText + postId : ", replyInputText, postId)
+    const response = await api.get("/commentHandler",{
+        params : {replyInputText, postId}
+    });
+    return response;
+}
