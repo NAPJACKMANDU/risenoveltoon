@@ -78,13 +78,18 @@ export interface Episode {
 }
 
 export interface CommentItem {
-  id: number;
-  userName: string;
-  userAvatar?: string;
-  content: string;
-  createdAt: string;
-  likeCount: number;
-  isLiked?: boolean;
-  isMyComment?: boolean; // 자기가 쓴 댓글이면 삭제 버튼 표시용
-  replies?: CommentItem[];
+    id: number;
+    userName: string;
+    userAvatar?: string;
+    content: string;
+    createdAt: string;
+    likeCount: number;
+    isLiked?: boolean;
+    isMyComment?: boolean; // 자기가 쓴 댓글이면 삭제 버튼 표시용
+    replies?: CommentItem[];
+}
+
+export interface CommentApiItem {
+    commentText : string;
+    contentId : number;
 }

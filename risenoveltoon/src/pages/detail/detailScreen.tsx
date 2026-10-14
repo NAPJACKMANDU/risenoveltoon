@@ -158,7 +158,7 @@ export default function Detail() {
             <CommentSection
                 isOpen = {isCommentOpen}
                 onClose={() => setIsCommentOpen(false)}
-                postId={state?.contentId}/>
+                contentId={state?.contentId}/>
         </div>
         
     );

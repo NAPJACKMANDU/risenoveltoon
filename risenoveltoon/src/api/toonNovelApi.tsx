@@ -1,6 +1,6 @@
 import axios from "axios";
 import api from "./jwtTokenApi";
-import type { SetLoveState } from "../interface/types/novelToon";
+import type { SetLoveState, CommentApiItem } from "../interface/types/novelToon";
 
 // 메인 페이지 툰, 소설 가져오기
 export const mainToonNovelApi = async() => {
@@ -42,10 +42,8 @@ export const novelToonEpisodesDataApi = async(contentId : any) => {
 }
 
 // 댓글 
-export const commentHandlerApi = async(replyInputText : any, postId : number) => {
-    console.log("replyInputText + postId : ", replyInputText, postId)
-    const response = await api.get("/commentHandler",{
-        params : {replyInputText, postId}
-    });
+export const commentHandlerApi = async(commentApiItem : CommentApiItem) => {
+    console.log("commentText + contentId : ", commentApiItem)
+    const response = await api.post("/commentHandler", commentApiItem)
     return response;
 }

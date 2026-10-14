@@ -13,7 +13,6 @@ export interface PurchaseModalProps {
     modalProps : modalParam;
 }
 
-
 export interface PrivateRouteProps {
   children: React.ReactNode;
 }

@@ -7,7 +7,7 @@ import { commentHandlerApi } from "../api/toonNovelApi";
 interface CommentSectionProps {
   isOpen: boolean;
   onClose: () => void;
-  postId: number;
+  contentId: number;
   initialComments?: CommentItem[];
   onAddComment?: (content: string) => void;
   onDeleteComment?: (id: number) => void;
@@ -17,24 +17,18 @@ interface CommentSectionProps {
 export const CommentSection = ({
   isOpen,
   onClose,
-  postId,
+  contentId,
   initialComments,
   onAddComment,
   onDeleteComment,
   onToggleLike,
 }: CommentSectionProps) => {
   const [comments, setComments] = useState<CommentItem[]>([]);
-  const [inputText, setInputText] = useState("");
+  const [commentText, setcommentText] = useState("");
 
   // 💡 어떤 댓글에 답글을 달고 있는지 관리하는 상태 (댓글 ID 저장)
   const [activeReplyCommentId, setActiveReplyCommentId] = useState<number | null>(null);
-  const [replyInputText, setReplyInputText] = useState("");
-
-  const commentHandler = async(replyInputText : any, postId : number) => {
-    const response = await commentHandlerApi(replyInputText, postId)
-    console.log(response.data)
-  }
-
+  const [replycommentText, setReplycommentText] = useState("");
 
   useEffect(() => {
     if (initialComments && initialComments.length > 0) {
@@ -73,19 +67,23 @@ export const CommentSection = ({
         },
       ]);
     }
-  }, [initialComments, postId]);
+  }, [initialComments, contentId]);
 
   if (!isOpen) return null;
 
-  // 메인 댓글 등록
-  const handleSubmit = (e: React.FormEvent) => {
+
+  // 메인 댓글 commentText
+  const handleSubmit = async (e: React.FormEvent, commentText : any, contentId : number) => {
     e.preventDefault();
-    if (!inputText.trim()) return;
+    if (!commentText.trim()) return;
+
+    const response = await commentHandlerApi(commentText, contentId)
+    console.log(response.data)
 
     const newComment: CommentItem = {
       id: Date.now(),
       userName: "나",
-      content: inputText,
+      content: commentText,
       createdAt: "방금 전",
       likeCount: 0,
       isLiked: false,
@@ -94,19 +92,19 @@ export const CommentSection = ({
     };
 
     setComments((prev) => [newComment, ...prev]);
-    if (onAddComment) onAddComment(inputText);
-    setInputText("");
+    if (onAddComment) onAddComment(commentText);
+    setcommentText("");
   };
 
   // 💡 대댓글 등록 처리
   const handleReplySubmit = (commentId: number, e: React.FormEvent) => {
     e.preventDefault();
-    if (!replyInputText.trim()) return;
+    if (!replycommentText.trim()) return;
 
     const newReply: CommentItem = {
       id: Date.now(),
       userName: "나",
-      content: replyInputText,
+      content: replycommentText,
       createdAt: "방금 전",
       likeCount: 0,
       isLiked: false,
@@ -125,7 +123,7 @@ export const CommentSection = ({
       })
     );
 
-    setReplyInputText("");
+    setReplycommentText("");
     setActiveReplyCommentId(null); // 입력창 닫기
   };
 
@@ -261,14 +259,13 @@ export const CommentSection = ({
                       type="text"
                       className="comment-input"
                       placeholder="답글을 남겨주세요..."
-                      value={replyInputText}
-                      onChange={(e) => setReplyInputText(e.target.value)}
+                      value={replycommentText}
+                      onChange={(e) => setReplycommentText(e.target.value)}
                     />
                     <button
                       type="button"
                       className="btn-submit-comment"
-                      disabled={!replyInputText.trim()}
-                      onClick={() => commentHandler(replyInputText, postId)}
+                      disabled={!replycommentText.trim()}
                     >
                       등록
                     </button>
@@ -280,7 +277,7 @@ export const CommentSection = ({
         </div>
 
         {/* 하단 메인 댓글 입력창 */}
-        <form className="comment-input-wrapper" onSubmit={handleSubmit}>
+        <form className="comment-input-wrapper" onSubmit={(e) => handleSubmit(e, commentText, contentId)}>
           <div className="profile-image-container">
             <img src={antonImg} alt="" className="commet-Profile-img" />
           </div>
@@ -288,13 +285,13 @@ export const CommentSection = ({
             type="text"
             className="comment-input"
             placeholder="댓글을 입력하세요..."
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
+            value={commentText}
+            onChange={(e) => setcommentText(e.target.value)}
           />
           <button
             type="submit"
             className="btn-submit-comment"
-            disabled={!inputText.trim()}
+            disabled={!commentText.trim()}
           >
             등록
           </button>
