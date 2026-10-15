@@ -77,7 +77,7 @@ export const CommentSection = ({
     e.preventDefault();
     if (!commentText.trim()) return;
 
-    const response = await commentHandlerApi(commentText, contentId)
+    const response = await commentHandlerApi({commentText : commentText, contentId:contentId})
     console.log(response.data)
 
     const newComment: CommentItem = {
@@ -126,8 +126,6 @@ export const CommentSection = ({
     setReplycommentText("");
     setActiveReplyCommentId(null); // 입력창 닫기
   };
-
-
 
   const handleLikeToggle = (id: number) => {
     setComments((prev) =>
