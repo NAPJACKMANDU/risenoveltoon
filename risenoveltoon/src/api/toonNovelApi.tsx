@@ -41,9 +41,13 @@ export const novelToonEpisodesDataApi = async(contentId : any) => {
     return response;
 }
 
-// 댓글 
+// 댓글 등록
 export const commentHandlerApi = async(commentApiItem : CommentApiItem) => {
-    console.log("commentText + contentId : ", commentApiItem)
-    const response = await api.post("/commentHandler", commentApiItem)
+    await api.post("/commentHandler", commentApiItem)
+}
+
+// 댓글 리스트
+export const commentListApi = async(contentId : any) => {
+        const response = await axios.get(`/api/commentList/${contentId}`);
     return response;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import type { CommentItem } from "../interface/types/novelToon";
 import "../css/commentCss.css";
 import antonImg from '../assets/img/anton.jpg'; 
-import { commentHandlerApi } from "../api/toonNovelApi";
+import { commentHandlerApi, commentListApi } from "../api/toonNovelApi";
 
 interface CommentSectionProps {
   isOpen: boolean;
@@ -10,15 +10,14 @@ interface CommentSectionProps {
   contentId: number;
   initialComments?: CommentItem[];
   onAddComment?: (content: string) => void;
-  onDeleteComment?: (id: number) => void;
-  onToggleLike?: (id: number) => void;
+  onDeleteComment?: (commentId: number) => void;
+  onToggleLike?: (commentId: number) => void;
 }
 
 export const CommentSection = ({
   isOpen,
   onClose,
   contentId,
-  initialComments,
   onAddComment,
   onDeleteComment,
   onToggleLike,
@@ -31,57 +30,62 @@ export const CommentSection = ({
   const [replycommentText, setReplycommentText] = useState("");
 
   useEffect(() => {
-    if (initialComments && initialComments.length > 0) {
-      setComments(initialComments);
-    } else {
-      // 💡 더미 데이터 (대댓글 포함 예시)
-      setComments([
-        {
-          id: 1,
-          userName: "닝닝이",
-          content: "이번 화 너무 재밌어요!! 다음 화 언제 나오나요 ㅠㅠ",
-          createdAt: "10분 전",
-          likeCount: 5,
-          isLiked: false,
-          isMyComment: true,
-          replies: [
-            {
-              id: 101,
-              userName: "작가",
-              content: "재밌게 봐주셔서 감사합니다! 다음 주에 돌아올게요!",
-              createdAt: "5분 전",
-              likeCount: 2,
-              isLiked: false,
-              isMyComment: false,
-            },
-          ],
-        },
-        {
-          id: 2,
-          userName: "웹툰매니아",
-          content: "작화 퀄리티 미쳤다... 레전드 갱신!",
-          createdAt: "1시간 전",
-          likeCount: 12,
-          isLiked: true,
-          isMyComment: false,
-        },
-      ]);
-    }
-  }, [initialComments, contentId]);
+    if (contentId == null) return;
+    
+    async function fetchComments() {
+      try {
+        const response = await commentListApi(contentId);
+        const commentData = response.data;
+        console.log("response commentPage:" , commentData);
+        const newComments = commentData.map((item: any) => ({
+                  commentId: item.commentId,
+                  userId: item.userId,
+                  userName: item.nickname,
+                  content: item.commentText,
+                  createdAt: item.createdAt.substring(0, 16).replace('T', ' '),
+                  likeCount: item.likeCount,
+                  episodeId: item.episodeId,
+                  parentId: item.parentId,
+                  isLiked: false,
+                  isMyComment: true,
+                  ...(!item.parentId && { 
+                      replies: commentData
+                          .filter((r: any) => item.commentId === r.parentId)
+                          .map((r: any) => ({
+                              commentId: r.commentId,
+                              userId: r.userId,
+                              userName: r.nickname,
+                              content: r.commentText,
+                              createdAt: r.createdAt.substring(0, 16).replace('T', ' '),
+                              likeCount: r.likeCount,
+                              episodeId: r.episodeId,
+                              parentId: r.parentId,
+                              isLiked: false,
+                              isMyComment: true
+                          }))
+                  })
+}));
 
+setComments(newComments);
+        
+     } catch(error) {
+        console.error("댓글 불러오기 실패:", error);
+      }
+    } fetchComments();
+  }, [contentId]);
+//  ,[]) < 여기 안의 값 : 이 값이 바뀌면 다시 렌더링 되어라
   if (!isOpen) return null;
 
 
   // 메인 댓글 commentText
-  const handleSubmit = async (e: React.FormEvent, commentText : any, contentId : number) => {
+  const handleSubmit = async (e: React.FormEvent, commentText : any, contentId : number, parentId? : number) => {
     e.preventDefault();
     if (!commentText.trim()) return;
 
-    const response = await commentHandlerApi({commentText : commentText, contentId:contentId})
-    console.log(response.data)
+        await commentHandlerApi({commentText : commentText, contentId : contentId, parentId : parentId})
 
     const newComment: CommentItem = {
-      id: Date.now(),
+      commentId: Date.now(),
       userName: "나",
       content: commentText,
       createdAt: "방금 전",
@@ -102,7 +106,7 @@ export const CommentSection = ({
     if (!replycommentText.trim()) return;
 
     const newReply: CommentItem = {
-      id: Date.now(),
+      commentId: Date.now(),
       userName: "나",
       content: replycommentText,
       createdAt: "방금 전",
@@ -113,7 +117,7 @@ export const CommentSection = ({
 
     setComments((prev) =>
       prev.map((comment) => {
-        if (comment.id === commentId) {
+        if (comment.commentId === commentId) {
           return {
             ...comment,
             replies: [...(comment.replies || []), newReply],
@@ -127,10 +131,10 @@ export const CommentSection = ({
     setActiveReplyCommentId(null); // 입력창 닫기
   };
 
-  const handleLikeToggle = (id: number) => {
+  const handleLikeToggle = (commentId: number) => {
     setComments((prev) =>
       prev.map((item) => {
-        if (item.id === id) {
+        if (item.commentId === commentId) {
           const updatedIsLiked = !item.isLiked;
           return {
             ...item,
@@ -141,12 +145,12 @@ export const CommentSection = ({
         return item;
       })
     );
-    if (onToggleLike) onToggleLike(id);
+    if (onToggleLike) onToggleLike(commentId);
   };
 
-  const handleDelete = (id: number) => {
-    setComments((prev) => prev.filter((item) => item.id !== id));
-    if (onDeleteComment) onDeleteComment(id);
+  const handleDelete = (commentId: number) => {
+    setComments((prev) => prev.filter((item) => item.commentId !== commentId));
+    if (onDeleteComment) onDeleteComment(commentId);
   };
 
   return (
@@ -171,14 +175,14 @@ export const CommentSection = ({
             <div className="comment-empty">댓글이 없습니다.</div>
           ) : (
             comments.map((comment) => (
-              <div key={comment.id} className="comment-item-group">
+              <div key={comment.commentId} className="comment-item-group">
                 {/* 메인 댓글 */}
                 <div className="comment-item">
                   <div className="comment-avatar">
-                    {comment.userAvatar ? (
-                      <img src={comment.userAvatar} alt={comment.userName} />
+                    {comment.profileImg ? (
+                      <img src={comment.profileImg} alt={comment.userName} />
                     ) : (
-                      <div className="avatar-placeholder">{comment.userName.slice(0, 1)}</div>
+                      <div className="avatar-placeholder">{comment.userName}</div>
                     )}
                   </div>
 
@@ -186,11 +190,11 @@ export const CommentSection = ({
                     <div className="comment-meta">
                       <span className="comment-author">{comment.userName}</span>
                       <span className="comment-date">{comment.createdAt}</span>
-                      {comment.isMyComment && (
+                      {comment.userId === localStorage.getItem("savedUserId")&& (
                         <button
                           type="button"
                           className="btn-delete-comment"
-                          onClick={() => handleDelete(comment.id)}
+                          onClick={() => handleDelete(comment.commentId)}
                         >
                           삭제
                         </button>
@@ -203,7 +207,7 @@ export const CommentSection = ({
                       <button
                         type="button"
                         className={`btn-like ${comment.isLiked ? "active" : ""}`}
-                        onClick={() => handleLikeToggle(comment.id)}
+                        onClick={() => handleLikeToggle(comment.commentId)}
                       >
                         ♥ {comment.likeCount}
                       </button>
@@ -213,7 +217,7 @@ export const CommentSection = ({
                         className="btn-reply-toggle"
                         onClick={() =>
                           setActiveReplyCommentId(
-                            activeReplyCommentId === comment.id ? null : comment.id
+                            activeReplyCommentId === comment.commentId ? null : comment.commentId
                           )
                         }
                       >
@@ -227,19 +231,37 @@ export const CommentSection = ({
                 {comment.replies && comment.replies.length > 0 && (
                   <div className="reply-list">
                     {comment.replies.map((reply) => (
-                      <div key={reply.id} className="reply-item">
+                      <div key={reply.commentId} className="reply-item">
                         <div className="reply-arrow">ㄴ</div>
                         <div className="comment-avatar" style={{ width: 28, height: 28 }}>
                           <div className="avatar-placeholder" style={{ fontSize: 11 }}>
-                            {reply.userName.slice(0, 1)}
+                            {reply.userName}
                           </div>
                         </div>
                         <div className="comment-body">
                           <div className="comment-meta">
                             <span className="comment-author">{reply.userName}</span>
                             <span className="comment-date">{reply.createdAt}</span>
+                         {reply.userId === localStorage.getItem("savedUserId")&& (
+                             <button
+                               type="button"
+                               className="btn-delete-comment"
+                               onClick={() => handleDelete(reply.commentId)}
+                             >
+                               삭제
+                             </button>
+                         )}
                           </div>
                           <p className="comment-text">{reply.content}</p>
+                    <div className="comment-actions">
+                      <button
+                        type="button"
+                        className={`btn-like ${reply.isLiked ? "active" : ""}`}
+                        onClick={() => handleLikeToggle(reply.commentId)}
+                      >
+                        ♥ {reply.likeCount}
+                      </button>
+                    </div>
                         </div>
                       </div>
                     ))}
@@ -247,10 +269,10 @@ export const CommentSection = ({
                 )}
 
                 {/* 💡 특정 댓글에만 열리는 대댓글 입력창 */}
-                {activeReplyCommentId === comment.id && (
+                {activeReplyCommentId === comment.commentId && (
                   <form
                     className="reply-input-wrapper"
-                    onSubmit={(e) => handleReplySubmit(comment.id, e)}
+                    onSubmit={(e) => handleSubmit(e, replycommentText, contentId, comment.commentId)}
                   >
                     <span className="reply-input-arrow">ㄴ</span>
                     <input
@@ -261,7 +283,7 @@ export const CommentSection = ({
                       onChange={(e) => setReplycommentText(e.target.value)}
                     />
                     <button
-                      type="button"
+                      type="submit"
                       className="btn-submit-comment"
                       disabled={!replycommentText.trim()}
                     >

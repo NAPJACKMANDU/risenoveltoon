@@ -78,12 +78,15 @@ export interface Episode {
 }
 
 export interface CommentItem {
-    id: number;
+    commentId: number;
+    userId?:string;
     userName: string;
-    userAvatar?: string;
+    profileImg?: string;
     content: string;
     createdAt: string;
     likeCount: number;
+    episodeId? :number;
+    parentId? :number;
     isLiked?: boolean;
     isMyComment?: boolean; // 자기가 쓴 댓글이면 삭제 버튼 표시용
     replies?: CommentItem[];
@@ -92,4 +95,5 @@ export interface CommentItem {
 export interface CommentApiItem {
     commentText : string;
     contentId : number;
+    parentId? : number;
 }
