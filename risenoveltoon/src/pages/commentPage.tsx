@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import type { CommentItem } from "../interface/types/novelToon";
 import "../css/commentCss.css";
 import antonImg from '../assets/img/anton.jpg'; 
-import { commentHandlerApi, commentListApi } from "../api/toonNovelApi";
+import { commentHandlerApi, deleteCommentApi } from "../api/toonNovelApi";
+import { fetchComments } from "../hooks/functionComHook";
 
 interface CommentSectionProps {
   isOpen: boolean;
@@ -30,106 +31,35 @@ export const CommentSection = ({
   const [replycommentText, setReplycommentText] = useState("");
 
   useEffect(() => {
-    if (contentId == null) return;
+      if (contentId == null) return;
     
-    async function fetchComments() {
-      try {
-        const response = await commentListApi(contentId);
-        const commentData = response.data;
-        console.log("response commentPage:" , commentData);
-        const newComments = commentData.map((item: any) => ({
-                  commentId: item.commentId,
-                  userId: item.userId,
-                  userName: item.nickname,
-                  content: item.commentText,
-                  createdAt: item.createdAt.substring(0, 16).replace('T', ' '),
-                  likeCount: item.likeCount,
-                  episodeId: item.episodeId,
-                  parentId: item.parentId,
-                  isLiked: false,
-                  isMyComment: true,
-                  ...(!item.parentId && { 
-                      replies: commentData
-                          .filter((r: any) => item.commentId === r.parentId)
-                          .map((r: any) => ({
-                              commentId: r.commentId,
-                              userId: r.userId,
-                              userName: r.nickname,
-                              content: r.commentText,
-                              createdAt: r.createdAt.substring(0, 16).replace('T', ' '),
-                              likeCount: r.likeCount,
-                              episodeId: r.episodeId,
-                              parentId: r.parentId,
-                              isLiked: false,
-                              isMyComment: true
-                          }))
-                  })
-}));
+      const loadComments = async () => {
+        try {
+          const newComments = await fetchComments(contentId); 
+          setComments(newComments);
+        } catch (error) {
+          console.error("댓글 불러오기 실패:", error);
+        }
+      };
+      loadComments();
+    }, [contentId]);
 
-setComments(newComments);
-        
-     } catch(error) {
-        console.error("댓글 불러오기 실패:", error);
-      }
-    } fetchComments();
-  }, [contentId]);
-//  ,[]) < 여기 안의 값 : 이 값이 바뀌면 다시 렌더링 되어라
-  if (!isOpen) return null;
+        //  ,[]) < 여기 안의 값 : 이 값이 바뀌면 다시 렌더링 되어라
+        if (!isOpen) return null;
 
-
-  // 메인 댓글 commentText
+  // 댓글
   const handleSubmit = async (e: React.FormEvent, commentText : any, contentId : number, parentId? : number) => {
     e.preventDefault();
     if (!commentText.trim()) return;
 
-        await commentHandlerApi({commentText : commentText, contentId : contentId, parentId : parentId})
-
-    const newComment: CommentItem = {
-      commentId: Date.now(),
-      userName: "나",
-      content: commentText,
-      createdAt: "방금 전",
-      likeCount: 0,
-      isLiked: false,
-      isMyComment: true,
-      replies: [],
-    };
-
-    setComments((prev) => [newComment, ...prev]);
-    if (onAddComment) onAddComment(commentText);
-    setcommentText("");
-  };
-
-  // 💡 대댓글 등록 처리
-  const handleReplySubmit = (commentId: number, e: React.FormEvent) => {
-    e.preventDefault();
-    if (!replycommentText.trim()) return;
-
-    const newReply: CommentItem = {
-      commentId: Date.now(),
-      userName: "나",
-      content: replycommentText,
-      createdAt: "방금 전",
-      likeCount: 0,
-      isLiked: false,
-      isMyComment: true,
-    };
-
-    setComments((prev) =>
-      prev.map((comment) => {
-        if (comment.commentId === commentId) {
-          return {
-            ...comment,
-            replies: [...(comment.replies || []), newReply],
-          };
-        }
-        return comment;
-      })
-    );
-
-    setReplycommentText("");
+    await commentHandlerApi({commentText : commentText, contentId : contentId, parentId : parentId})
+    const newComment = await fetchComments(contentId);
+    setComments(newComment);
+   
+    setcommentText("");
+    setReplycommentText("");
     setActiveReplyCommentId(null); // 입력창 닫기
-  };
+};
 
   const handleLikeToggle = (commentId: number) => {
     setComments((prev) =>
@@ -148,7 +78,8 @@ setComments(newComments);
     if (onToggleLike) onToggleLike(commentId);
   };
 
-  const handleDelete = (commentId: number) => {
+  const handleDelete = async(commentId: number) => {
+    await deleteCommentApi(commentId);
     setComments((prev) => prev.filter((item) => item.commentId !== commentId));
     if (onDeleteComment) onDeleteComment(commentId);
   };

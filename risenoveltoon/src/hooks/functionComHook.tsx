@@ -1,7 +1,8 @@
 import {useNavigate} from "react-router-dom";
 import "../css/componentsCss.css";
-import type {NovelToonListProps, CategoryProps, BackButtonType, novelToonListData} from "../interface/types/novelToon.tsx";
-import { viewCountApi } from "../api/toonNovelApi.tsx";
+import type {NovelToonListProps, CategoryProps, BackButtonType, novelToonListData, CommentItem} from "../interface/types/novelToon.tsx";
+import { commentListApi, viewCountApi } from "../api/toonNovelApi.tsx";
+import {useState} from "react";
 
 // 뒤로가기 공통
 export const BackButton = ({backtype} : BackButtonType) => {
@@ -81,3 +82,40 @@ export const CategoryButton = ({listData, categoryId} : NovelToonListProps & Cat
 }
 
 
+// 댓글 페이지 불러오는 공통
+export const fetchComments = async (contentId: number) => {
+    const response = await commentListApi(contentId);
+    const commentData = response.data;
+
+    // 부모 댓글만 최상위로
+    const newComments = commentData
+            .filter((item: any) => contentId === item.contentId && !item.parentId)
+            .map((item: any) => ({
+              commentId: item.commentId,
+              userId: item.userId,
+              userName: item.nickname,
+              content: item.commentText,
+              createdAt: item.createdAt.substring(0, 16).replace("T", " "),
+              likeCount: item.likeCount,
+              episodeId: item.episodeId,
+              parentId: item.parentId,
+              isLiked: false,
+              isMyComment: true,
+              replies: commentData
+                .filter((r: any) => item.commentId === r.parentId)
+                .map((r: any) => ({
+                  commentId: r.commentId,
+                  userId: r.userId,
+                  userName: r.nickname,
+                  content: r.commentText,
+                  createdAt: r.createdAt.substring(0, 16).replace("T", " "),
+                  likeCount: r.likeCount,
+                  episodeId: r.episodeId,
+                  parentId: r.parentId,
+                  isLiked: false,
+                  isMyComment: true,
+                })),
+            }));
+
+        return newComments; 
+    };
