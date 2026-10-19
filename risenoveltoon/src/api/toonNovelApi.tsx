@@ -51,3 +51,8 @@ export const commentListApi = async(contentId : any) => {
         const response = await axios.get(`/api/commentList/${contentId}`);
     return response;
 }
+
+// 댓글 삭제
+export const deleteCommentApi = async(commentId : any) => {
+    await api.post("/deleteComment", commentId) ;
+}
