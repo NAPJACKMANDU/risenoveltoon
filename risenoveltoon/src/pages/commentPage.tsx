@@ -80,7 +80,8 @@ export const CommentSection = ({
 
   const handleDelete = async(commentId: number) => {
     await deleteCommentApi(commentId);
-    setComments((prev) => prev.filter((item) => item.commentId !== commentId));
+    const newComment = await fetchComments(contentId);
+    setComments(newComment);
     if (onDeleteComment) onDeleteComment(commentId);
   };
 

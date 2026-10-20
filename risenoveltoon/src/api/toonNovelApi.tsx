@@ -54,5 +54,7 @@ export const commentListApi = async(contentId : any) => {
 
 // 댓글 삭제
 export const deleteCommentApi = async(commentId : any) => {
-    await api.post("/deleteComment", commentId) ;
+    await api.post("/deleteComment", null, {
+        params: { commentId }
+    }) ;
 }
